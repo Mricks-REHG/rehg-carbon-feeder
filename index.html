@@ -1,0 +1,3618 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>CARBON | FEEDER — VIP, Reservations & Marketing ROI Suite</title>
+  <meta name="description" content="REHG Carbon™ Feeder — Multi-Tenant Sovereign VIP Booth Concierge, GAS Digital Footprint Ingestion, Marketing Attribution, 1-Click Live POS Package Push & Promoter Door Wristband ROI." />
+  <meta name="theme-color" content="#050811" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CARBON | FEEDER" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="icon" href="./carbon-feeder-logo.jpeg" />
+  <link rel="apple-touch-icon" href="./carbon-feeder-logo.jpeg" />
+  <link id="dynamic-manifest" rel="manifest" href="" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#050811',
+            gunmetal: '#0B101E',
+            slatepanel: '#111827',
+            titanium: '#1E293B',
+            feederCyan: '#38BDF8',
+            feederCyanDark: '#0284C7',
+            crimson: '#EF4444',
+            sovereign: '#D4AF37',
+            emeraldVault: '#10B981'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            cinzel: ['Cinzel', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      background-color: #050811;
+      color: #E2E8F0;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .titanium-wordmark {
+      background: linear-gradient(180deg, #FFFFFF 0%, #CBD5E1 55%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cyan-wordmark {
+      background: linear-gradient(180deg, #7DD3FC 0%, #38BDF8 55%, #0284C7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 22px rgba(56, 189, 248, 0.25);
+    }
+    .carbon-card {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92) 0%, rgba(11, 16, 30, 0.96) 100%);
+      border: 1px solid rgba(30, 41, 59, 0.95);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    }
+    .carbon-subcard {
+      background-color: #0B101E;
+      border: 1px solid rgba(30, 41, 59, 0.85);
+    }
+    .carbon-input {
+      background-color: #050811;
+      border: 1px solid #1E293B;
+      color: #F8FAFC;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .carbon-input:focus {
+      outline: none;
+      border-color: #38BDF8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
+    }
+    .nav-tab-btn {
+      border: 1px solid transparent;
+      color: #94A3B8;
+      background: transparent;
+    }
+    .nav-tab-btn:hover {
+      color: #F8FAFC;
+      background: rgba(30, 41, 59, 0.35);
+    }
+    .nav-tab-active {
+      background: rgba(56, 189, 248, 0.15) !important;
+      border-color: #38BDF8 !important;
+      color: #FFFFFF !important;
+      box-shadow: inset 0 1px 0 rgba(125, 211, 252, 0.2), 0 0 16px rgba(56, 189, 248, 0.12);
+    }
+    @keyframes pinShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .pin-shake {
+      animation: pinShake 0.28s ease-in-out;
+      border-color: rgba(239, 68, 68, 0.85) !important;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050811;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38BDF8;
+    }
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #0F172A !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .carbon-card, .carbon-subcard {
+        background: #FFFFFF !important;
+        border: 1px solid #CBD5E1 !important;
+        box-shadow: none !important;
+        color: #0F172A !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-feederCyan selection:text-obsidian">
+
+  <!-- TOAST STACK -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0 no-print"></div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. EXACT STEALTH PIN GATE (PURE #050811 — LOGO + STEALTH PILL ONLY)       -->
+  <!-- ========================================================================= -->
+  <div id="pin-gate-overlay" onclick="focusPinInput()" class="fixed inset-0 z-50 bg-[#050811] flex flex-col items-center justify-center p-4 select-none">
+    <img
+      src="./carbon-feeder-logo.jpeg"
+      alt="CARBON | FEEDER"
+      onerror="this.onerror=null;this.src='https://ruvyxmpokjdzkagbltac.supabase.co/storage/v1/object/public/brand-assets/carbon-feeder-logo.jpeg';"
+      class="w-72 h-72 sm:w-80 sm:h-80 object-contain mx-auto select-none"
+    />
+    <div id="pin-pill-shell" class="mt-2 w-44 h-12 rounded-full bg-[#0B101E]/90 border border-slate-800/90 focus-within:border-[#38BDF8]/60 flex items-center justify-center mx-auto transition-all">
+      <input
+        id="stealth-pin-input"
+        type="tel"
+        inputmode="numeric"
+        maxlength="4"
+        autocomplete="one-time-code"
+        data-lpignore="true"
+        style="-webkit-text-security: disc;"
+        placeholder="•  •  •  •"
+        oninput="handleStealthPinInput(this)"
+        class="w-full bg-transparent text-center font-mono text-lg tracking-[0.45em] text-slate-100 placeholder:text-slate-600 placeholder:tracking-[0.22em] focus:outline-none"
+      />
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- COMPACT STICKY COMMAND HEADER + FULL-WIDTH 5-TAB TITANIUM RAIL            -->
+  <!-- ========================================================================= -->
+  <header id="app-header" class="hidden sticky top-0 z-40 bg-[#050811]/95 backdrop-blur-md border-b border-slate-800/90 no-print">
+    <div class="max-w-[1640px] mx-auto px-3 sm:px-6 py-2.5 space-y-2">
+      <!-- Top Control Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-2.5">
+        <!-- Brand Lockup -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-[#050811] border border-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+            <img
+              src="./carbon-feeder-logo.jpeg"
+              alt="CARBON | FEEDER"
+              onerror="this.onerror=null;this.src='https://ruvyxmpokjdzkagbltac.supabase.co/storage/v1/object/public/brand-assets/carbon-feeder-logo.jpeg';"
+              class="w-full h-full object-contain select-none"
+            />
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-base sm:text-lg font-extrabold tracking-wider titanium-wordmark">CARBON</span>
+              <span class="text-slate-600 font-light">|</span>
+              <span class="text-base sm:text-lg font-extrabold tracking-wider cyan-wordmark">FEEDER</span>
+              <span id="header-role-badge" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-feederCyan/15 text-feederCyan border border-feederCyan/40">
+                SOVEREIGN C-SUITE
+              </span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[10px] text-slate-400">
+              <span class="uppercase tracking-[0.16em] font-semibold text-slate-300">VIP, RESERVATIONS & MARKETING ROI SUITE</span>
+              <span class="text-slate-700">•</span>
+              <span class="font-mono">Scope: <strong id="header-venue-badge" class="text-feederCyan">CARBON_HQ</strong></span>
+              <span class="text-slate-700">•</span>
+              <span id="supabase-status-pill" class="inline-flex items-center gap-1.5 font-mono text-emeraldVault">
+                <span class="w-1.5 h-1.5 rounded-full bg-emeraldVault animate-pulse"></span>rehg-pos-core LIVE
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dual-Mode Ingestion + Dynamic Multi-Tenant Scope Selector + Actions -->
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex rounded-lg bg-[#0B101E] p-0.5 border border-slate-800">
+            <button id="mode-btn-live" type="button" onclick="setIngestionMode('CARBON_POS_LIVE')" class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide transition bg-feederCyan/20 text-feederCyan border border-feederCyan/50">
+              ⚡ CARBON POS + GAS LIVE AUTOPILOT
+            </button>
+            <button id="mode-btn-csv" type="button" onclick="setIngestionMode('STANDALONE_CSV')" class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide transition text-slate-400 hover:text-white border border-transparent">
+              📂 STANDALONE / CSV BRIDGE
+            </button>
+          </div>
+
+          <select id="header-venue-select" onchange="switchActiveVenue(this.value)" title="Multi-Tenant Venue Scope" class="carbon-input rounded-lg px-2.5 py-1 text-xs font-mono font-semibold text-feederCyan">
+            <option value="CARBON_HQ">CARBON_HQ</option>
+          </select>
+
+          <button type="button" onclick="refreshAllTelemetry(true)" class="px-2.5 py-1 rounded-lg bg-[#0B101E] hover:bg-slate-900 border border-slate-800 hover:border-feederCyan/50 text-slate-300 text-xs font-semibold transition">
+            ↻ Sync
+          </button>
+          <button type="button" onclick="switchFeederTab('tab-5')" class="px-2.5 py-1 rounded-lg bg-[#0B101E] hover:bg-slate-900 border border-slate-800 hover:border-sovereign/60 text-slate-300 text-xs font-semibold transition">
+            ⚙️ Vault & Config
+          </button>
+          <button type="button" onclick="lockSession()" class="px-2.5 py-1 rounded-lg bg-crimson/15 hover:bg-crimson border border-crimson/60 text-red-200 hover:text-white text-xs font-bold transition">
+            Lock Out
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. FULL-WIDTH SEGMENTED TITANIUM COMMAND RAIL (<nav>) -->
+      <nav aria-label="Carbon Feeder Command Rail" class="w-full grid grid-cols-2 lg:grid-cols-5 gap-1.5 p-1.5 bg-[#0B101E]/95 border border-slate-800/80 rounded-xl">
+        <button type="button" data-tab="tab-1" onclick="switchFeederTab('tab-1')" class="nav-tab-btn nav-tab-active w-full px-3 py-2 rounded-lg text-xs font-bold tracking-wide transition flex items-center justify-center gap-2 text-center">
+          <span class="font-mono text-[10px] text-feederCyan font-extrabold">01</span>
+          <span class="truncate">C-Suite ROI & Attribution</span>
+        </button>
+        <button type="button" data-tab="tab-2" onclick="switchFeederTab('tab-2')" class="nav-tab-btn w-full px-3 py-2 rounded-lg text-xs font-bold tracking-wide transition flex items-center justify-center gap-2 text-center">
+          <span class="font-mono text-[10px] text-feederCyan font-extrabold">02</span>
+          <span class="truncate">VIP & GAS Footprint Desk</span>
+          <span id="nav-inquiry-badge" class="hidden px-1.5 py-0.5 rounded bg-feederCyan text-obsidian font-mono text-[9px] font-extrabold">0</span>
+        </button>
+        <button type="button" data-tab="tab-3" onclick="switchFeederTab('tab-3')" class="nav-tab-btn w-full px-3 py-2 rounded-lg text-xs font-bold tracking-wide transition flex items-center justify-center gap-2 text-center">
+          <span class="font-mono text-[10px] text-feederCyan font-extrabold">03</span>
+          <span class="truncate">Campaigns & POS Push</span>
+        </button>
+        <button type="button" data-tab="tab-4" onclick="switchFeederTab('tab-4')" class="nav-tab-btn w-full px-3 py-2 rounded-lg text-xs font-bold tracking-wide transition flex items-center justify-center gap-2 text-center">
+          <span class="font-mono text-[10px] text-feederCyan font-extrabold">04</span>
+          <span class="truncate">Hosts, Bands & Sleeper</span>
+        </button>
+        <button type="button" data-tab="tab-5" onclick="switchFeederTab('tab-5')" class="nav-tab-btn col-span-2 lg:col-span-1 w-full px-3 py-2 rounded-lg text-xs font-bold tracking-wide transition flex items-center justify-center gap-2 text-center">
+          <span class="font-mono text-[10px] text-feederCyan font-extrabold">05</span>
+          <span class="truncate">VIP Vault, CSV & GAS Bridge</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN APPLICATION WORKSPACE                                                -->
+  <!-- ========================================================================= -->
+  <main id="app-main" class="hidden flex-1 max-w-[1640px] w-full mx-auto px-3 sm:px-6 py-5 space-y-6">
+
+    <!-- STANDALONE / CSV BRIDGE BANNER (SHOWN WHEN STANDALONE_CSV IS ACTIVE) -->
+    <section id="csv-bridge-banner" class="hidden carbon-card rounded-xl p-4 border-l-4 border-l-feederCyan no-print">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">STANDALONE / CSV BRIDGE ACTIVE</span>
+            <h2 class="text-sm font-bold text-white">Self-Deployed DIY Mode ($397 Toolkit / $49.99 mo Sovereign Pass)</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Upload OpenTable / Resy / SevenRooms / Eventbrite guestlists or Toast / Square POS promo & check summaries to reconcile ROAS and promoter headcounts.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian text-xs font-extrabold transition">
+            📤 Upload POS Sales / Promo CSV
+            <input type="file" accept=".csv,.txt" class="hidden" onchange="handlePosPromoCsvUpload(event)" />
+          </label>
+          <button type="button" onclick="switchFeederTab('tab-5')" class="px-3 py-2 rounded-lg bg-[#0B101E] hover:bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold transition">
+            Open 60-Sec Guestlist Importer →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 1 — VIP, RESERVATIONS & MARKETING ROI C-SUITE COMMAND               -->
+    <!-- ======================================================================= -->
+    <section id="tab-1" class="feeder-tab-panel space-y-6">
+      <!-- Date Horizon Controls + Guardrail Status Strip + Print Brief -->
+      <div class="carbon-card rounded-xl p-4 flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex rounded-lg bg-[#0B101E] p-1 border border-slate-800 no-print">
+            <button type="button" data-range="TODAY" onclick="setDateHorizon('TODAY')" class="horizon-btn px-3 py-1.5 rounded-md text-xs font-bold bg-feederCyan/20 text-feederCyan border border-feederCyan/50">Today</button>
+            <button type="button" data-range="WTD" onclick="setDateHorizon('WTD')" class="horizon-btn px-3 py-1.5 rounded-md text-xs font-bold text-slate-400 hover:text-white border border-transparent">WTD</button>
+            <button type="button" data-range="MTD" onclick="setDateHorizon('MTD')" class="horizon-btn px-3 py-1.5 rounded-md text-xs font-bold text-slate-400 hover:text-white border border-transparent">MTD</button>
+            <button type="button" data-range="CUSTOM" onclick="setDateHorizon('CUSTOM')" class="horizon-btn px-3 py-1.5 rounded-md text-xs font-bold text-slate-400 hover:text-white border border-transparent">Custom</button>
+          </div>
+          <div id="custom-date-inputs" class="hidden items-center gap-2 no-print">
+            <input id="filter-start-date" type="date" onchange="renderAllTabs()" class="carbon-input rounded-lg px-2.5 py-1.5 text-xs font-mono" />
+            <span class="text-slate-500 text-xs">to</span>
+            <input id="filter-end-date" type="date" onchange="renderAllTabs()" class="carbon-input rounded-lg px-2.5 py-1.5 text-xs font-mono" />
+          </div>
+          <span id="active-window-label" class="text-xs font-mono text-slate-400 px-2">Window: Today</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <div id="csuite-guardrail-summary-pill" class="owner-only-el px-3 py-1.5 rounded-lg bg-[#0B101E] border border-slate-800 text-[11px] font-mono text-slate-300">
+            Guardrails: <strong id="lbl-g-mkt" class="text-feederCyan">4.5%</strong> Max Mktg | <strong id="lbl-g-roas" class="text-feederCyan">5.0x</strong> Min ROAS | <strong id="lbl-g-comm" class="text-feederCyan">10.0%</strong> Max Host
+          </div>
+          <button type="button" onclick="window.print()" class="no-print px-3.5 py-1.5 rounded-lg bg-[#0B101E] hover:bg-slate-900 border border-slate-700 hover:border-feederCyan text-slate-200 text-xs font-bold transition">
+            🖨️ Print Executive ROI Brief
+          </button>
+        </div>
+      </div>
+
+      <!-- 6-Card KPI Strip -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 items-stretch">
+        <div class="carbon-card rounded-xl p-4 flex flex-col justify-between">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Attributed VIP & Mktg Gross</span>
+          <div class="mt-2 flex items-baseline justify-between gap-2">
+            <span id="kpi-attributed-gross" class="text-xl sm:text-2xl font-extrabold font-mono text-white">$0.00</span>
+            <span id="kpi-attributed-covers" class="text-[10px] font-mono text-feederCyan">0 Covers</span>
+          </div>
+        </div>
+
+        <div class="carbon-card rounded-xl p-4 flex flex-col justify-between">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Committed VIP & Table Mins</span>
+          <div class="mt-2 flex items-baseline justify-between gap-2">
+            <span id="kpi-committed-mins" class="text-xl sm:text-2xl font-extrabold font-mono text-feederCyan">$0.00</span>
+            <span id="kpi-vip-deposits" class="text-[10px] font-mono text-slate-400">$0.00 Dep</span>
+          </div>
+        </div>
+
+        <div class="carbon-card rounded-xl p-4 flex flex-col justify-between">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Marketing Spend % of Gross</span>
+          <div class="mt-2 flex items-baseline justify-between gap-2">
+            <span id="kpi-mktg-pct" class="text-xl sm:text-2xl font-extrabold font-mono text-white">0.0%</span>
+            <span id="kpi-mktg-guard-badge" class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emeraldVault/15 text-emeraldVault">≤4.5% CAP</span>
+          </div>
+        </div>
+
+        <div class="carbon-card rounded-xl p-4 flex flex-col justify-between">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Blended Marketing & Event ROAS</span>
+          <div class="mt-2 flex items-baseline justify-between gap-2">
+            <span id="kpi-blended-roas" class="text-xl sm:text-2xl font-extrabold font-mono text-white">0.0x</span>
+            <span id="kpi-roas-guard-badge" class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300">5.0x MIN</span>
+          </div>
+        </div>
+
+        <div class="carbon-card rounded-xl p-4 flex flex-col justify-between">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Door & Event Ticket Revenue</span>
+          <div class="mt-2 flex items-baseline justify-between gap-2">
+            <span id="kpi-door-ticket-rev" class="text-xl sm:text-2xl font-extrabold font-mono text-white">$0.00</span>
+            <span id="kpi-door-bands-count" class="text-[10px] font-mono text-slate-400">0 Bands</span>
+          </div>
+        </div>
+
+        <!-- Card 6: Role-Isolated (Owner sees Net Marketing & VIP P&L Contribution; PIN-MKT sees Verified Check-In Pace) -->
+        <div class="carbon-card rounded-xl p-4 flex flex-col justify-between border-feederCyan/30">
+          <span id="kpi-card6-label" class="text-[10px] uppercase tracking-wider text-feederCyan font-bold">Net Marketing & VIP P&L</span>
+          <div class="mt-2 flex items-baseline justify-between gap-2">
+            <span id="kpi-card6-val" class="text-xl sm:text-2xl font-extrabold font-mono text-emeraldVault">$0.00</span>
+            <span id="kpi-card6-sub" class="text-[10px] font-mono text-slate-400">After COGS+Mktg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8-Channel VIP & Marketing Attribution Matrix -->
+      <div class="carbon-card rounded-xl p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">8-CHANNEL REVENUE SPINE</span>
+              <h2 class="text-base font-extrabold text-white">VIP, GAS Digital Footprint & Multi-Channel Marketing Attribution Matrix</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Live reconciliation of GAS Workspace web bookings, host booth minimums, POS checks, campaign spend, and door wristbands across all 8 feeder channels.</p>
+          </div>
+          <div id="pnl-sync-indicator" class="owner-only-el text-[11px] font-mono text-emeraldVault bg-[#0B101E] border border-slate-800 px-3 py-1.5 rounded-lg">
+            P&L + Loss Sync: STANDBY
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400">
+                <th class="py-2.5 px-3">Feeder Acquisition Channel</th>
+                <th class="py-2.5 px-3 text-right">Bookings / Redemptions</th>
+                <th class="py-2.5 px-3 text-right">Verified Covers</th>
+                <th class="py-2.5 px-3 text-right">Channel Spend / Comm ($)</th>
+                <th class="py-2.5 px-3 text-right">Attributed Gross ($)</th>
+                <th class="py-2.5 px-3 text-right">Guest CAC ($)</th>
+                <th class="py-2.5 px-3 text-right">Channel ROAS</th>
+                <th id="th-channel-net-or-status" class="py-2.5 px-3 text-right">Net P&L / C-Suite Verdict</th>
+              </tr>
+            </thead>
+            <tbody id="attribution-matrix-tbody" class="divide-y divide-slate-800/70 font-mono"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+<!-- === END OF PART 1 === -->
+    <!-- ======================================================================= -->
+    <!-- TAB 2 — LIVE VIP BOOTH, DINING & GAS DIGITAL FOOTPRINT CONCIERGE        -->
+    <!-- ======================================================================= -->
+    <section id="tab-2" class="feeder-tab-panel hidden space-y-6">
+      <!-- ROW 1: SYMMETRICAL 2-COLUMN BALANCED LAYOUT (ZERO BLACK HOLE) -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+
+        <!-- ROW 1 LEFT (xl:col-span-6) — VIP BOOTH & RESERVATION DESK ENTRY -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">HOST & VIP CONCIERGE DESK</span>
+                <h2 class="text-base font-extrabold text-white mt-1">VIP Booth, Bottle Ritual & Dining Reservation Entry</h2>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">vip_reservations</span>
+            </div>
+
+            <form id="vip-res-form" onsubmit="handleCreateVipReservation(event)" class="mt-4 space-y-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Guest Full Name *</label>
+                  <input id="res-guest-name" type="text" required placeholder="Primary Guest Name" class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Mobile Phone (SMS)</label>
+                  <input id="res-guest-phone" type="tel" placeholder="+1 (000) 000-0000" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Guest Email</label>
+                  <input id="res-guest-email" type="email" placeholder="guest@domain.com" class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Reservation Date *</label>
+                  <input id="res-date" type="date" required class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Arrival Time *</label>
+                  <input id="res-time" type="time" value="21:00" required class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Party Size *</label>
+                  <input id="res-party-size" type="number" min="1" max="200" value="4" required class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Table / Booth Code</label>
+                  <input id="res-table-code" type="text" placeholder="e.g. V-101 / B-4" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono uppercase" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Section / Experience Tier *</label>
+                  <select id="res-section-tier" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="Main Floor VIP Booth">Main Floor VIP Booth</option>
+                    <option value="Stage / DJ Table">Stage / DJ Table</option>
+                    <option value="Velvet Lounge">Velvet Lounge</option>
+                    <option value="Owner's Table">Owner's Table</option>
+                    <option value="Private Dining Salon">Private Dining Salon</option>
+                    <option value="Main Dining">Main Dining</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Attribution Channel *</label>
+                  <select id="res-source-channel" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="VIP_BOOTH_DESK">VIP Booth & Bottle Desk</option>
+                    <option value="CARBON_GAS_FOOTPRINT">Carbon GAS Digital Footprint (Web Direct)</option>
+                    <option value="PAID_DIGITAL_UTM">Paid Digital, Meta & Geo-Fence (UTM)</option>
+                    <option value="SMS_VIP_VAULT">SMS / VIP Vault Flash Drops</option>
+                    <option value="HOTEL_CONCIERGE">Hotel & Valet Concierge Network</option>
+                    <option value="HEADLINE_EVENTS">Headline Events & Tasting Dinners</option>
+                    <option value="HOST_PROMOTER">Hosts & Nightlife Promoters</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Table Minimum ($)</label>
+                  <input id="res-min-spend" type="number" min="0" step="0.01" value="0" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Deposit / Pre-Auth ($)</label>
+                  <input id="res-deposit" type="number" min="0" step="0.01" value="0" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Accounting Ref / Host</label>
+                  <input id="res-host-ref" type="text" placeholder="Ref ID or Host Name" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Occasion, Spirit Preference & Bottle Ritual Notes</label>
+                <input id="res-notes" type="text" placeholder="Spirit preferences, milestone notes, dietary or security instructions..." class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+              </div>
+
+              <div class="pt-2 flex flex-wrap items-center justify-between gap-2">
+                <span class="text-[11px] text-slate-400">Auto-upserts VIP Guest Profile into <code class="text-feederCyan font-mono">guest_crm_contacts</code></span>
+                <button type="submit" class="px-5 py-2.5 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian font-extrabold text-xs tracking-wide transition">
+                  + Lock VIP / Concierge Reservation
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ROW 1 RIGHT (xl:col-span-6) — LIVE INCOMING CARBON GAS FOOTPRINT & CONCIERGE QUEUE -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div class="flex flex-col h-full">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-md bg-emeraldVault/15 border border-emeraldVault/40 text-emeraldVault font-mono text-[10px] font-bold uppercase">LIVE CONCIERGE STREAM</span>
+                  <h2 class="text-base font-extrabold text-white">Carbon GAS Digital Footprint & Host Queue</h2>
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5">Verified GAS Workspace web bookings + desk inquiries with live POS check pacing & 1-click Velvet-Rope SMS.</p>
+              </div>
+              <select id="concierge-status-filter" onchange="renderTab2Concierge()" class="carbon-input rounded-lg px-2.5 py-1.5 text-xs font-mono">
+                <option value="ALL">All Statuses</option>
+                <option value="INQUIRY">INQUIRY</option>
+                <option value="CONFIRMED">CONFIRMED</option>
+                <option value="ARRIVED">ARRIVED / SEATED</option>
+                <option value="CLOSED">CLOSED</option>
+                <option value="NO_SHOW">NO-SHOW</option>
+              </select>
+            </div>
+
+            <div id="concierge-queue-list" class="mt-4 flex-1 max-h-[430px] overflow-y-auto space-y-2.5 pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2 (xl:col-span-12) — ACTIVE FLOOR SECTION ALLOCATION & MINIMUM-SPEND PACING MATRIX -->
+      <div class="carbon-card rounded-xl p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">FLOOR YIELD & MINIMUM PACING</span>
+            <h2 class="text-base font-extrabold text-white mt-1">Active Floor Section Allocation & Minimum-Spend Pacing Matrix</h2>
+          </div>
+          <span id="floor-pacing-totals-pill" class="px-3 py-1.5 rounded-lg bg-[#0B101E] border border-slate-800 font-mono text-xs text-slate-300">
+            Committed Mins: $0.00 | Live POS Check Spend: $0.00
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400">
+                <th class="py-2.5 px-3">Experience / Floor Section</th>
+                <th class="py-2.5 px-3 text-right">Active Bookings</th>
+                <th class="py-2.5 px-3 text-right">Booked Covers</th>
+                <th class="py-2.5 px-3 text-right">Deposits Held ($)</th>
+                <th class="py-2.5 px-3 text-right">Committed Minimums ($)</th>
+                <th class="py-2.5 px-3 text-right">Actual POS Spend ($)</th>
+                <th class="py-2.5 px-3 text-right">Unmet Min Gap ($)</th>
+                <th class="py-2.5 px-3 text-right">Section Pacing</th>
+              </tr>
+            </thead>
+            <tbody id="floor-section-matrix-tbody" class="divide-y divide-slate-800/70 font-mono"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 3 — MARKETING CAMPAIGN BUILDER, VIP POS PACKAGES & 1-CLICK POS PUSH -->
+    <!-- ======================================================================= -->
+    <section id="tab-3" class="feeder-tab-panel hidden space-y-6">
+      <!-- ROW 1: SYMMETRICAL 2-COLUMN BALANCED LAYOUT -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+
+        <!-- ROW 1 LEFT (xl:col-span-6) — MULTI-CHANNEL MARKETING & EVENT ROI SIMULATOR -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">CAMPAIGN & CAC MODELER</span>
+                <h2 class="text-base font-extrabold text-white mt-1">Multi-Channel Marketing & Event ROI Simulator</h2>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">feeder_campaigns</span>
+            </div>
+
+            <form id="campaign-builder-form" onsubmit="handleSubmitMarketingCampaign(event)" class="mt-4 space-y-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Campaign / Activation Name *</label>
+                  <input id="camp-name" type="text" required oninput="recalcCampaignSimulator()" placeholder="Weekend Activation or Drop Name" class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Primary Acquisition Channel *</label>
+                  <select id="camp-channel" onchange="recalcCampaignSimulator()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="PAID_DIGITAL_UTM">Paid Digital, Meta & Geo-Fence (UTM)</option>
+                    <option value="SMS_VIP_VAULT">SMS / VIP Vault Flash Drops</option>
+                    <option value="HOTEL_CONCIERGE">Hotel & Valet Concierge Network</option>
+                    <option value="HEADLINE_EVENTS">Headline Events & Tasting Dinners</option>
+                    <option value="CARBON_GAS_FOOTPRINT">Carbon GAS Digital Footprint (Web Direct)</option>
+                    <option value="VIP_BOOTH_DESK">VIP Booth & Bottle Desk</option>
+                    <option value="HOST_PROMOTER">Hosts & Nightlife Promoters</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Ad / SMS Spend ($)</label>
+                  <input id="camp-ad-spend" type="number" min="0" step="0.01" value="0" oninput="recalcCampaignSimulator()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Talent / Production ($)</label>
+                  <input id="camp-talent-spend" type="number" min="0" step="0.01" value="0" oninput="recalcCampaignSimulator()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Expected Covers</label>
+                  <input id="camp-exp-covers" type="number" min="1" step="1" value="40" oninput="recalcCampaignSimulator()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Avg Check / Cover ($)</label>
+                  <input id="camp-avg-check" type="number" min="0" step="0.01" value="75" oninput="recalcCampaignSimulator()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Committed VIP Minimums ($)</label>
+                  <input id="camp-vip-mins" type="number" min="0" step="0.01" value="0" oninput="recalcCampaignSimulator()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">UTM / Promo Tracking Code</label>
+                  <input id="camp-utm-code" type="text" placeholder="e.g. VIP_FLASH_01" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono uppercase" />
+                </div>
+              </div>
+
+              <!-- Live Simulator Output Strip -->
+              <div class="carbon-subcard rounded-lg p-3 grid grid-cols-3 gap-2 text-center font-mono">
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Break-Even Covers</span>
+                  <strong id="sim-breakeven-covers" class="text-sm text-white">0</strong>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Est. Guest CAC</span>
+                  <strong id="sim-est-cac" class="text-sm text-feederCyan">$0.00</strong>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Projected ROAS</span>
+                  <strong id="sim-proj-roas" class="text-sm text-emeraldVault">0.0x</strong>
+                </div>
+              </div>
+
+              <div class="pt-1 flex items-center justify-between gap-2">
+                <span id="sim-guardrail-preview" class="text-[11px] font-mono text-slate-400">Enter budget & expected yield to evaluate ROAS guardrail.</span>
+                <button type="submit" id="btn-submit-campaign" class="px-4 py-2.5 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian font-extrabold text-xs tracking-wide transition shrink-0">
+                  Submit Campaign to C-Suite Gate
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ROW 1 RIGHT (xl:col-span-6) — TRACKABLE VIP BOTTLE PACKAGE / PROMO POS BUTTON BUILDER -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-sovereign/15 border border-sovereign/40 text-sovereign font-mono text-[10px] font-bold uppercase">POS OFFER ARCHITECT</span>
+                <h2 class="text-base font-extrabold text-white mt-1">Trackable VIP Bottle Package & Promo POS Button Builder</h2>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">→ menu_items</span>
+            </div>
+
+            <form id="pos-package-form" onsubmit="handleSubmitPosPackage(event)" class="mt-4 space-y-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">POS Button / Package Title *</label>
+                  <input id="pkg-name" type="text" required oninput="recalcPackageMargin()" placeholder="VIP Bottle Ritual or Tasting Tier" class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Offer Category *</label>
+                  <select id="pkg-category" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="VIP Bottle Ritual">VIP Bottle Ritual</option>
+                    <option value="Chef / Wine Tasting Pairing">Chef / Wine Tasting Pairing</option>
+                    <option value="Slow-Shift Foot Traffic Offer">Slow-Shift Foot Traffic Offer</option>
+                    <option value="Door Cover / Event Ticket Tier">Door Cover / Event Ticket Tier</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Package COGS ($)</label>
+                  <input id="pkg-cogs" type="number" min="0" step="0.01" value="0" required oninput="recalcPackageMargin()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">POS Retail Price ($) *</label>
+                  <input id="pkg-price" type="number" min="0.01" step="0.01" value="350" required oninput="recalcPackageMargin()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">POS Terminal Target *</label>
+                  <select id="pkg-pos-screen" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="VIP_SCREEN">🍾 VIP / Bottle Screen (VIP_SCREEN)</option>
+                    <option value="SPEED_SCREEN">⚡ Speed / Promo Screen (SPEED_SCREEN)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Linked Campaign Channel</label>
+                  <select id="pkg-channel" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="VIP_BOOTH_DESK">VIP Booth & Bottle Desk</option>
+                    <option value="HEADLINE_EVENTS">Headline Events & Tasting Dinners</option>
+                    <option value="SMS_VIP_VAULT">SMS / VIP Vault Flash Drops</option>
+                    <option value="PAID_DIGITAL_UTM">Paid Digital, Meta & Geo-Fence (UTM)</option>
+                    <option value="HOTEL_CONCIERGE">Hotel & Valet Concierge Network</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Included Bottles / Mixers / Notes</label>
+                  <input id="pkg-notes" type="text" placeholder="Depletion specs or service ritual notes" class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+                </div>
+              </div>
+
+              <!-- Package Margin Strip -->
+              <div class="carbon-subcard rounded-lg p-3 grid grid-cols-3 gap-2 text-center font-mono">
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Package COGS %</span>
+                  <strong id="pkg-sim-cogs-pct" class="text-sm text-emeraldVault">0.0%</strong>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Gross Margin ($)</span>
+                  <strong id="pkg-sim-margin" class="text-sm text-white">$350.00</strong>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">POS Screen Route</span>
+                  <strong id="pkg-sim-route" class="text-sm text-feederCyan">VIP_SCREEN</strong>
+                </div>
+              </div>
+
+              <div class="pt-1 flex items-center justify-between gap-2">
+                <span class="text-[11px] text-slate-400">Queues package for Owner C-Suite approval & 1-click live POS push.</span>
+                <button type="submit" class="px-4 py-2.5 rounded-lg bg-sovereign hover:bg-amber-400 text-obsidian font-extrabold text-xs tracking-wide transition shrink-0">
+                  Stage POS Package for C-Suite
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2: SYMMETRICAL APPROVAL QUEUE (xl:col-span-5) + ACTIVE CAMPAIGNS LEDGER (xl:col-span-7) -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+        <!-- ROW 2 LEFT (xl:col-span-5) -->
+        <div class="xl:col-span-5 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-sovereign/15 border border-sovereign/40 text-sovereign font-mono text-[10px] font-bold uppercase">C-SUITE GOVERNANCE GATE</span>
+                <h3 class="text-sm font-extrabold text-white mt-1">Marketing Budget & 1-Click Live POS Push Queue</h3>
+              </div>
+              <span id="csuite-queue-count" class="px-2 py-0.5 rounded bg-[#0B101E] border border-slate-800 font-mono text-xs text-feederCyan">0 Pending</span>
+            </div>
+            <div id="csuite-campaign-approval-list" class="mt-4 flex-1 max-h-[380px] overflow-y-auto space-y-2.5 pr-1"></div>
+          </div>
+        </div>
+
+        <!-- ROW 2 RIGHT (xl:col-span-7) -->
+        <div class="xl:col-span-7 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div class="flex flex-col h-full">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">LIVE CAMPAIGN & PROMO LEDGER</span>
+                <h3 class="text-sm font-extrabold text-white mt-1">Active Marketing Campaigns & POS Redemption ROAS</h3>
+              </div>
+              <label class="cursor-pointer px-2.5 py-1.5 rounded-lg bg-[#0B101E] hover:bg-slate-900 border border-slate-700 text-slate-300 text-[11px] font-semibold transition">
+                📤 Audit Legacy POS Promo CSV
+                <input type="file" accept=".csv,.txt" class="hidden" onchange="handlePosPromoCsvUpload(event)" />
+              </label>
+            </div>
+
+            <div class="mt-4 overflow-x-auto flex-1">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400">
+                    <th class="py-2 px-2.5">Campaign / POS Offer</th>
+                    <th class="py-2 px-2.5">Channel / Screen</th>
+                    <th class="py-2 px-2.5 text-right">Budget ($)</th>
+                    <th class="py-2 px-2.5 text-right">Live Redemptions ($)</th>
+                    <th class="py-2 px-2.5 text-right">ROAS</th>
+                    <th class="py-2 px-2.5 text-right">POS / Gate Status</th>
+                  </tr>
+                </thead>
+                <tbody id="active-campaigns-tbody" class="divide-y divide-slate-800/70 font-mono"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- === END OF PART 2 === -->
+    <!-- ======================================================================= -->
+    <!-- TAB 4 — HOST, CONCIERGE & PROMOTER SETTLEMENT + PHANTOM HEADCOUNT AUDIT -->
+    <!-- ======================================================================= -->
+    <section id="tab-4" class="feeder-tab-panel hidden space-y-6">
+      <!-- ROW 1: SYMMETRICAL 2-COLUMN BALANCED LAYOUT (ZERO BLACK HOLE) -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+
+        <!-- ROW 1 LEFT (xl:col-span-6) — HOST, PROMOTER & CONCIERGE SETTLEMENT BUILDER -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">DOOR & PARTNER CHECK-IN</span>
+                <h2 class="text-base font-extrabold text-white mt-1">Host, Promoter & Concierge Settlement Builder</h2>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">promoter_ledgers</span>
+            </div>
+
+            <form id="promoter-settlement-form" onsubmit="handleCreatePromoterSettlement(event)" class="mt-4 space-y-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Partner / Host Name *</label>
+                  <input id="prom-name" type="text" required placeholder="Host or Concierge Name" class="carbon-input w-full rounded-lg px-3 py-2 text-xs" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Partner Role / Network *</label>
+                  <select id="prom-role" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="Nightlife Promoter">Nightlife Promoter</option>
+                    <option value="VIP Table Host">VIP Table Host</option>
+                    <option value="Hotel Concierge">Hotel Concierge</option>
+                    <option value="Valet / Chauffeur Partner">Valet / Chauffeur Partner</option>
+                    <option value="Event / Brand Partner">Event / Brand Partner</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Shift / Event Date *</label>
+                  <input id="prom-date" type="date" required class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Payout Model *</label>
+                  <select id="prom-payout-model" onchange="recalcPromoterSettlementPreview()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-semibold">
+                    <option value="PCT_VERIFIED_SPEND">% of Verified Table Spend</option>
+                    <option value="PER_VERIFIED_COVER">$ Per Verified Cover / Wristband</option>
+                    <option value="FLAT_FEE">Flat Shift / Appearance Fee</option>
+                  </select>
+                </div>
+                <div>
+                  <label id="lbl-prom-rate" class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Rate (% or $ Amount) *</label>
+                  <input id="prom-rate-val" type="number" min="0" step="0.01" value="10" required oninput="recalcPromoterSettlementPreview()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Claimed Guests *</label>
+                  <input id="prom-claimed-guests" type="number" min="0" step="1" value="0" required oninput="recalcPromoterSettlementPreview()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Verified Bands *</label>
+                  <input id="prom-verified-bands" type="number" min="0" step="1" value="0" required oninput="recalcPromoterSettlementPreview()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">POS Table Spend ($)</label>
+                  <input id="prom-pos-spend" type="number" min="0" step="0.01" value="0" oninput="recalcPromoterSettlementPreview()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Door Cover Rev ($)</label>
+                  <input id="prom-door-rev" type="number" min="0" step="0.01" value="0" oninput="recalcPromoterSettlementPreview()" class="carbon-input w-full rounded-lg px-2.5 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Table Codes / POS Check IDs / Notes</label>
+                <input id="prom-notes" type="text" placeholder="Associated booth codes, wristband series, or check references" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+              </div>
+
+              <!-- Live Settlement Preview -->
+              <div class="carbon-subcard rounded-lg p-3 grid grid-cols-3 gap-2 text-center font-mono">
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Verified Total Gross</span>
+                  <strong id="prom-sim-gross" class="text-sm text-white">$0.00</strong>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Calculated Payout</span>
+                  <strong id="prom-sim-payout" class="text-sm text-feederCyan">$0.00</strong>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 uppercase">Effective Comm %</span>
+                  <strong id="prom-sim-eff-pct" class="text-sm text-emeraldVault">0.0%</strong>
+                </div>
+              </div>
+
+              <div class="pt-1 flex items-center justify-between gap-2">
+                <span class="text-[11px] text-slate-400">Submits shift tally to C-Suite Settlement Gate.</span>
+                <button type="submit" class="px-4 py-2.5 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian font-extrabold text-xs tracking-wide transition">
+                  Log Partner Check-In & Queue Payout
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ROW 1 RIGHT (xl:col-span-6) — OWNER C-SUITE SETTLEMENT & FRAUD GATE (ROLE-ISOLATED) -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <!-- OWNER VIEW: C-SUITE PHANTOM HEADCOUNT & PAYOUT AUDIT GATE -->
+          <div id="owner-settlement-gate-panel" class="flex flex-col h-full">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-md bg-sovereign/15 border border-sovereign/40 text-sovereign font-mono text-[10px] font-bold uppercase">SOVEREIGN C-SUITE GATE (2424)</span>
+                  <h2 class="text-base font-extrabold text-white">Promoter Payout & Phantom Headcount Audit</h2>
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5">Cross-checks claimed headcounts against verified door wristbands & POS checks; silently syncs variances to <code class="text-crimson font-mono">loss_shelf_audits</code>.</p>
+              </div>
+              <span id="prom-pending-count" class="px-2 py-0.5 rounded bg-[#0B101E] border border-slate-800 font-mono text-xs text-feederCyan">0 Pending</span>
+            </div>
+
+            <div id="owner-promoter-gate-list" class="mt-4 flex-1 max-h-[430px] overflow-y-auto space-y-2.5 pr-1"></div>
+          </div>
+
+          <!-- PIN-MKT VIEW: ROLE-ISOLATED PARTNER SUBMISSION TRACKER (ZERO FRAUD FLAGS / ZERO NET MARGINS) -->
+          <div id="mkt-settlement-status-panel" class="hidden flex-col h-full">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">SUBMITTED SETTLEMENT QUEUE</span>
+                <h2 class="text-base font-extrabold text-white mt-1">Host & Concierge Check-In Submission Status</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Tracks shift check-ins queued for executive payout settlement.</p>
+              </div>
+            </div>
+            <div id="mkt-promoter-status-list" class="mt-4 flex-1 max-h-[430px] overflow-y-auto space-y-2.5 pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2 (xl:col-span-12) — ACTIVE HOST, CONCIERGE & PARTNER LEADERBOARD -->
+      <div class="carbon-card rounded-xl p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">PARTNER PERFORMANCE LEDGER</span>
+            <h2 id="partner-leaderboard-title" class="text-base font-extrabold text-white mt-1">Active Host, Concierge & Partner Net-Margin Leaderboard</h2>
+          </div>
+          <span id="partner-totals-pill" class="px-3 py-1.5 rounded-lg bg-[#0B101E] border border-slate-800 font-mono text-xs text-slate-300">
+            Verified Bands: 0 | Attributed Gross: $0.00
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400">
+                <th class="py-2.5 px-3">Partner / Host</th>
+                <th class="py-2.5 px-3">Network Tier</th>
+                <th class="py-2.5 px-3 text-right">Claimed</th>
+                <th class="py-2.5 px-3 text-right">Verified Bands</th>
+                <th class="py-2.5 px-3 text-right">POS + Door Gross ($)</th>
+                <th class="py-2.5 px-3 text-right">Approved / Est Payout ($)</th>
+                <th id="th-partner-col7" class="py-2.5 px-3 text-right">Comm % / Headcount Audit</th>
+                <th id="th-partner-col8" class="py-2.5 px-3 text-right">Net Venue Contribution</th>
+              </tr>
+            </thead>
+            <tbody id="promoter-leaderboard-tbody" class="divide-y divide-slate-800/70 font-mono"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 5 — BLACK-BOOK VIP VAULT, 60-SEC CSV BRIDGE & GAS PROVISIONER       -->
+    <!-- ======================================================================= -->
+    <section id="tab-5" class="feeder-tab-panel hidden space-y-6">
+      <!-- ROW 1: SYMMETRICAL 2-COLUMN BALANCED LAYOUT (VIP BLACK BOOK + 60-SEC CSV BRIDGE) -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+
+        <!-- ROW 1 LEFT (xl:col-span-6) — HIGH-ROLLER / REPEAT GUEST BLACK BOOK -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div class="flex flex-col h-full space-y-3.5">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">VIP CLIENTELING VAULT</span>
+                <h2 class="text-base font-extrabold text-white mt-1">Black-Book High-Roller & Repeat Guest Vault</h2>
+              </div>
+              <button type="button" onclick="exportVipSegmentCsv()" class="px-3 py-1.5 rounded-lg bg-feederCyan/15 hover:bg-feederCyan hover:text-obsidian border border-feederCyan/50 text-feederCyan text-xs font-bold transition">
+                ⬇️ Export VIP SMS / Email Segment
+              </button>
+            </div>
+
+            <!-- Quick Add VIP Contact Row -->
+            <form id="vip-crm-quick-form" onsubmit="handleQuickAddVipContact(event)" class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+              <input id="crm-name" type="text" required placeholder="VIP Guest Name *" class="carbon-input rounded-lg px-2.5 py-2 text-xs sm:col-span-1" />
+              <input id="crm-phone" type="tel" placeholder="Mobile Phone" class="carbon-input rounded-lg px-2.5 py-2 text-xs font-mono sm:col-span-1" />
+              <input id="crm-pref" type="text" placeholder="Booth / Spirit Pref" class="carbon-input rounded-lg px-2.5 py-2 text-xs sm:col-span-1" />
+              <input id="crm-ltv" type="number" min="0" step="0.01" placeholder="Lifetime $" class="carbon-input rounded-lg px-2.5 py-2 text-xs font-mono sm:col-span-1" />
+              <button type="submit" class="px-3 py-2 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian font-extrabold text-xs transition">
+                + Add VIP
+              </button>
+            </form>
+
+            <!-- Search & Segment Filter -->
+            <div class="flex flex-wrap items-center gap-2">
+              <input id="crm-search-input" type="text" oninput="renderTab5Vault()" placeholder="Search guest name, mobile, spirit, or milestone..." class="carbon-input flex-1 rounded-lg px-3 py-1.5 text-xs" />
+              <select id="crm-tier-filter" onchange="renderTab5Vault()" class="carbon-input rounded-lg px-2.5 py-1.5 text-xs font-mono">
+                <option value="ALL">All Guests</option>
+                <option value="WHALE">High-Rollers ($1,000+ LTV)</option>
+                <option value="REPEAT">Repeat Guests (2+ Visits)</option>
+              </select>
+            </div>
+
+            <div class="overflow-x-auto flex-1 max-h-[290px]">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400">
+                    <th class="py-2 px-2">VIP Guest</th>
+                    <th class="py-2 px-2">Contact</th>
+                    <th class="py-2 px-2">Preferred Booth / Spirit</th>
+                    <th class="py-2 px-2 text-right">Visits</th>
+                    <th class="py-2 px-2 text-right">Lifetime Spend</th>
+                  </tr>
+                </thead>
+                <tbody id="vip-crm-tbody" class="divide-y divide-slate-800/70 font-mono"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 1 RIGHT (xl:col-span-6) — 60-SECOND STANDALONE CSV BRIDGE (DUAL BULK IMPORTER) -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-emeraldVault/15 border border-emeraldVault/40 text-emeraldVault font-mono text-[10px] font-bold uppercase">60-SECOND STANDALONE CSV BRIDGE</span>
+                <h2 class="text-base font-extrabold text-white mt-1">Guestlist & Legacy POS Promo Dual CSV Importer</h2>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Zero Manual Entry</span>
+            </div>
+
+            <!-- Importer A: Guestlist / Reservations CSV -->
+            <div class="carbon-subcard rounded-xl p-4 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">A. OpenTable / Resy / SevenRooms / Eventbrite Guestlist CSV</h3>
+                <button type="button" onclick="downloadGuestlistCsvSpec()" class="text-[11px] font-mono text-feederCyan hover:underline">Download Spec</button>
+              </div>
+              <p class="text-xs text-slate-400">Auto-maps <code class="font-mono text-slate-300">name, phone, email, visits, total_spend, notes, party_size, min_spend</code> straight into <code class="font-mono text-feederCyan">guest_crm_contacts</code> + <code class="font-mono text-feederCyan">vip_reservations</code>.</p>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <label class="cursor-pointer px-4 py-2 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian text-xs font-extrabold transition">
+                  📤 Import Reservation / Guestlist CSV
+                  <input type="file" accept=".csv,.txt" class="hidden" onchange="handleGuestlistCsvUpload(event)" />
+                </label>
+                <span id="guestlist-csv-status" class="text-[11px] font-mono text-slate-400">Awaiting CSV upload</span>
+              </div>
+            </div>
+
+            <!-- Importer B: Legacy Toast / Square Promo & Check Summary CSV -->
+            <div class="carbon-subcard rounded-xl p-4 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">B. Legacy Toast / Square Promo & Check Totals CSV</h3>
+                <button type="button" onclick="downloadPosPromoCsvSpec()" class="text-[11px] font-mono text-feederCyan hover:underline">Download Spec</button>
+              </div>
+              <p class="text-xs text-slate-400">Ingests external POS promo codes, check totals, covers, and comp amounts for $397 DIY / $49.99 mo standalone venues to calculate live ROAS & host payouts.</p>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <label class="cursor-pointer px-4 py-2 rounded-lg bg-[#050811] hover:bg-slate-900 border border-feederCyan/60 text-feederCyan text-xs font-extrabold transition">
+                  📤 Import Legacy POS Promo / Sales CSV
+                  <input type="file" accept=".csv,.txt" class="hidden" onchange="handlePosPromoCsvUpload(event)" />
+                </label>
+                <span id="pos-promo-csv-status" class="text-[11px] font-mono text-slate-400">Awaiting CSV upload</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2: SYMMETRICAL 2-COLUMN BALANCED LAYOUT (GAS FOOTPRINT GENERATOR + MULTI-TENANT GUARDRAIL CONFIG) -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+
+        <!-- ROW 2 LEFT (xl:col-span-6) — OWNER SOVEREIGN GAS DIGITAL FOOTPRINT & ACCOUNTING BRIDGE GENERATOR -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <!-- Owner View -->
+          <div id="owner-gas-bridge-panel" class="flex flex-col h-full justify-between space-y-3.5">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div>
+                  <span class="px-2 py-0.5 rounded-md bg-sovereign/15 border border-sovereign/40 text-sovereign font-mono text-[10px] font-bold uppercase">SOVEREIGN GAS WORKSPACE SPINE (2424)</span>
+                  <h2 class="text-base font-extrabold text-white mt-1">CarbonFootprintBridge.gs Accounting & Web Provisioner</h2>
+                </div>
+                <button type="button" onclick="copyGasBridgeScript()" class="px-3 py-1.5 rounded-lg bg-sovereign hover:bg-amber-400 text-obsidian text-xs font-extrabold transition">
+                  📋 Copy CarbonFootprintBridge.gs
+                </button>
+              </div>
+              <p class="text-xs text-slate-400 mt-2">Pre-stamped for active <code id="gas-ActiveVenueLabel" class="font-mono text-feederCyan">CARBON_HQ</code> scope. Enforces <code class="font-mono text-slate-300">LockService</code> + Carbon Bulk-Matrix <code class="font-mono text-slate-300">setValues()</code> into the client's Google Sheet Accounting Ledger FIRST, then dual-writes verified bookings into <code class="font-mono text-feederCyan">rehg-pos-core</code>.</p>
+              <textarea id="gas-bridge-code-box" readonly rows="11" class="mt-3 w-full carbon-input rounded-lg p-3 font-mono text-[11px] leading-relaxed text-sky-200 select-all"></textarea>
+            </div>
+          </div>
+
+          <!-- PIN-MKT View (Role-Isolated Card Maintaining Symmetrical Row Height) -->
+          <div id="mkt-gas-locked-panel" class="hidden flex-col h-full justify-between space-y-4">
+            <div>
+              <span class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-slate-300 font-mono text-[10px] font-bold uppercase">SOVEREIGN ARCHITECTURE LOCKED</span>
+              <h2 class="text-base font-extrabold text-white mt-2">Carbon GAS Digital Footprint Spine Status</h2>
+              <p class="text-xs text-slate-400 mt-1">External website reservations and pre-authorized table deposits route automatically through the venue's verified Google Workspace Accounting Spine into Tab 02.</p>
+            </div>
+            <div class="carbon-subcard rounded-xl p-4 space-y-2 font-mono text-xs">
+              <div class="flex justify-between"><span class="text-slate-400">Active Multi-Tenant Scope:</span><strong id="mkt-scope-readout" class="text-feederCyan">CARBON_HQ</strong></div>
+              <div class="flex justify-between"><span class="text-slate-400">Ingestion Spine:</span><strong class="text-emeraldVault">CARBON_GAS_FOOTPRINT</strong></div>
+              <div class="flex justify-between"><span class="text-slate-400">Provisioner & Guardrails:</span><strong class="text-sovereign">Requires Sovereign Owner PIN</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 2 RIGHT (xl:col-span-6) — MULTI-TENANT SCOPE SELECTOR & REHG GUARDRAIL CONFIG -->
+        <div class="xl:col-span-6 carbon-card rounded-xl p-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded-md bg-feederCyan/15 border border-feederCyan/40 text-feederCyan font-mono text-[10px] font-bold uppercase">MULTI-TENANT VAULT & GUARDRAILS</span>
+                <h2 class="text-base font-extrabold text-white mt-1">rehg-pos-core Scope Switcher & ROI Guardrail Config</h2>
+              </div>
+              <button type="button" id="btn-restore-benchmarks" onclick="restoreRehgRecommendedGuardrails()" class="owner-only-el px-2.5 py-1.5 rounded-lg bg-[#0B101E] hover:bg-slate-900 border border-feederCyan/50 text-feederCyan text-[11px] font-bold transition">
+                ↺ Restore REHG Recommended (4.5% Mktg / 5.0x ROAS / 10% Comm)
+              </button>
+            </div>
+
+            <!-- Multi-Tenant Venue Scope Switcher -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Discovered Multi-Tenant Scopes</label>
+                <select id="vault-venue-select" onchange="switchActiveVenue(this.value)" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono font-bold text-feederCyan">
+                  <option value="CARBON_HQ">CARBON_HQ</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Provision / Switch Custom venue_id</label>
+                <div class="flex gap-2">
+                  <input id="vault-custom-venue" type="text" placeholder="CLIENT_VENUE_ID" class="carbon-input flex-1 rounded-lg px-3 py-2 text-xs font-mono uppercase" />
+                  <button type="button" onclick="applyCustomVenueScope()" class="px-3 py-2 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian font-extrabold text-xs transition">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Owner-Only Guardrail & PIN Controls -->
+            <div id="owner-guardrail-controls" class="space-y-3.5 pt-1">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Max Mktg % of Gross</label>
+                  <input id="cfg-max-mktg-pct" type="number" min="0.5" max="50" step="0.1" value="4.5" oninput="handleGuardrailLiveEdit()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Min Campaign ROAS (x)</label>
+                  <input id="cfg-min-roas" type="number" min="1" max="50" step="0.1" value="5.0" oninput="handleGuardrailLiveEdit()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Max Host Comm (%)</label>
+                  <input id="cfg-max-comm-pct" type="number" min="1" max="50" step="0.5" value="10.0" oninput="handleGuardrailLiveEdit()" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Venue Owner PIN (4-Digit)</label>
+                  <input id="cfg-owner-pin" type="password" maxlength="4" inputmode="numeric" placeholder="2424" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">PIN-MKT (Host / Marketing Mode)</label>
+                  <input id="cfg-mkt-pin" type="password" maxlength="4" inputmode="numeric" placeholder="3131" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Supabase Project URL</label>
+                  <input id="cfg-sb-url" type="url" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Supabase Publishable Key</label>
+                  <input id="cfg-sb-key" type="password" class="carbon-input w-full rounded-lg px-3 py-2 text-xs font-mono" />
+                </div>
+              </div>
+
+              <div class="flex justify-end pt-1">
+                <button type="button" onclick="saveVaultAndGuardrailConfig()" class="px-5 py-2.5 rounded-lg bg-feederCyan hover:bg-sky-300 text-obsidian font-extrabold text-xs tracking-wide transition">
+                  Save Guardrails, PINs & Vault Connection
+                </button>
+              </div>
+            </div>
+
+            <!-- PIN-MKT Read-Only Guardrail Notice -->
+            <div id="mkt-guardrail-readonly" class="hidden carbon-subcard rounded-xl p-4 text-xs text-slate-400">
+              PIN-MKT mode can switch active <code class="font-mono text-feederCyan">venue_id</code> scopes and import guestlists. Guardrail thresholds and Sovereign PIN settings require Owner C-Suite login.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+<!-- === END OF PART 3 === -->
+  <!-- ========================================================================= -->
+  <!-- CORE SOVEREIGN ENGINE JAVASCRIPT (MULTI-TENANT + ZERO-400 SUPABASE)       -->
+  <!-- ========================================================================= -->
+  <script>
+    const DEFAULT_SUPABASE_URL = 'https://ruvyxmpokjdzkagbltac.supabase.co';
+    const DEFAULT_SUPABASE_KEY = 'sb_publishable_VqSYbTVnxowgrMeRH3xWLw_UgcJohXH';
+    const DEFAULT_VENUE_ID = 'CARBON_HQ';
+
+    const REHG_RECOMMENDED_GUARDRAILS = {
+      maxMktgPct: 4.5,
+      minRoas: 5.0,
+      maxCommPct: 10.0,
+      blendedCogsPct: 18.0
+    };
+
+    const STORAGE_KEYS = {
+      sbUrl: 'rehg_feeder_sb_url',
+      sbKey: 'rehg_feeder_sb_key',
+      venueId: 'rehg_feeder_venue_id',
+      ownerPin: 'rehg_feeder_owner_pin',
+      mktPin: 'rehg_feeder_mkt_pin',
+      guardrails: 'rehg_feeder_guardrails_v1',
+      mode: 'rehg_feeder_ingestion_mode',
+      localCachePrefix: 'rehg_feeder_cache_'
+    };
+
+    const ATTRIBUTION_CHANNELS = [
+      { code: 'CARBON_GAS_FOOTPRINT', label: 'Carbon GAS Digital Footprint (Web Direct)' },
+      { code: 'VIP_BOOTH_DESK', label: 'VIP Booth & Bottle Desk' },
+      { code: 'PAID_DIGITAL_UTM', label: 'Paid Digital, Meta & Geo-Fence (UTM)' },
+      { code: 'SMS_VIP_VAULT', label: 'SMS / VIP Vault Flash Drops' },
+      { code: 'HOTEL_CONCIERGE', label: 'Hotel & Valet Concierge Network' },
+      { code: 'HEADLINE_EVENTS', label: 'Headline Events & Tasting Dinners' },
+      { code: 'HOST_PROMOTER', label: 'Hosts & Nightlife Promoters' },
+      { code: 'UNATTRIBUTED_COMP_LEAKAGE', label: 'Unattributed VIP Comps / Promo Leakage' }
+    ];
+
+    const FLOOR_SECTIONS = [
+      'Main Floor VIP Booth',
+      'Stage / DJ Table',
+      'Velvet Lounge',
+      "Owner's Table",
+      'Private Dining Salon',
+      'Main Dining'
+    ];
+
+    const state = {
+      sb: null,
+      sbConnected: false,
+      role: null, // 'OWNER' or 'PIN_MKT'
+      venueId: DEFAULT_VENUE_ID,
+      knownVenues: [DEFAULT_VENUE_ID],
+      ingestionMode: 'CARBON_POS_LIVE', // 'CARBON_POS_LIVE' | 'STANDALONE_CSV'
+      dateHorizon: 'TODAY', // 'TODAY' | 'WTD' | 'MTD' | 'CUSTOM'
+      activeTab: 'tab-1',
+      ownerPin: '2424',
+      mktPin: '3131',
+      guardrails: { ...REHG_RECOMMENDED_GUARDRAILS },
+      // Live Scoped Telemetry Arrays (Zero Mock Data)
+      vipReservations: [],
+      feederCampaigns: [],
+      promoterLedgers: [],
+      guestCrmContacts: [],
+      orders: [],
+      orderItems: [],
+      menuItems: [],
+      doorWristbandLogs: [],
+      csvBridgeOrders: [],
+      realtimeSub: null,
+      lastPnlSyncHash: ''
+    };
+
+    // Safe HTML Entity Escaping via concatenation so clipboard never corrupts entities
+    function esc(val) {
+      const s = String(val === null || val === undefined ? '' : val);
+      const amp = '&' + 'amp;';
+      const lt = '&' + 'lt;';
+      const gt = '&' + 'gt;';
+      const quot = '&' + 'quot;';
+      const apos = '&' + '#39;';
+      return s
+        .replace(/&/g, amp)
+        .replace(/</g, lt)
+        .replace(/>/g, gt)
+        .replace(/"/g, quot)
+        .replace(/'/g, apos);
+    }
+
+    function fmtMoney(n) {
+      const v = Number(n) || 0;
+      const sign = v < 0 ? '-' : '';
+      return sign + '$' + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function fmtPct(n) {
+      const v = Number(n) || 0;
+      return v.toFixed(1) + '%';
+    }
+
+    function todayIsoStr() {
+      const d = new Date();
+      const yr = d.getFullYear();
+      const mo = String(d.getMonth() + 1).padStart(2, '0');
+      const da = String(d.getDate()).padStart(2, '0');
+      return yr + '-' + mo + '-' + da;
+    }
+
+    function sanitizeVenueId(raw) {
+      const cleaned = String(raw || '').trim().replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
+      if (!cleaned || cleaned.length < 3) {
+        return DEFAULT_VENUE_ID;
+      }
+      return cleaned;
+    }
+
+    // Strictly parse ONLY ?venue= or ?venue_id= (NEVER ?v= cache-busters!)
+    function resolveInitialVenueScope() {
+      try {
+        const params = new URLSearchParams(window.location.search || '');
+        const fromUrl = params.get('venue') || params.get('venue_id');
+        if (fromUrl) {
+          const valid = sanitizeVenueId(fromUrl);
+          localStorage.setItem(STORAGE_KEYS.venueId, valid);
+          return valid;
+        }
+        const stored = localStorage.getItem(STORAGE_KEYS.venueId);
+        const healed = sanitizeVenueId(stored);
+        localStorage.setItem(STORAGE_KEYS.venueId, healed);
+        return healed;
+      } catch (e) {
+        return DEFAULT_VENUE_ID;
+      }
+    }
+
+    function showToast(msg, tone = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const el = document.createElement('div');
+      let borderCls = 'border-feederCyan/60 text-slate-100';
+      if (tone === 'success') borderCls = 'border-emeraldVault/70 text-emerald-100';
+      if (tone === 'error') borderCls = 'border-crimson/80 text-red-100';
+      if (tone === 'warn') borderCls = 'border-sovereign/80 text-amber-100';
+
+      el.className = 'pointer-events-auto rounded-lg bg-[#0B101E]/95 border px-3.5 py-2.5 text-xs font-medium shadow-2xl transition-all ' + borderCls;
+      el.textContent = msg;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        setTimeout(() => el.remove(), 220);
+      }, 3600);
+    }
+
+    function getScopedCacheKey(tableName) {
+      return STORAGE_KEYS.localCachePrefix + state.venueId + '_' + tableName;
+    }
+
+    function readLocalScopedCache(tableName) {
+      try {
+        const raw = localStorage.getItem(getScopedCacheKey(tableName));
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function writeLocalScopedCache(tableName, rows) {
+      try {
+        localStorage.setItem(getScopedCacheKey(tableName), JSON.stringify(Array.isArray(rows) ? rows : []));
+      } catch (e) {
+        // Ignore storage quota limits
+      }
+    }
+
+    // Initialize Dynamic PWA Manifest
+    function injectDynamicPwaManifest() {
+      try {
+        const manifestObj = {
+          name: 'CARBON | FEEDER — VIP, Reservations & Marketing ROI Suite',
+          short_name: 'CARBON | FEEDER',
+          start_url: './index.html',
+          display: 'standalone',
+          background_color: '#050811',
+          theme_color: '#050811',
+          icons: [
+            {
+              src: new URL('./carbon-feeder-logo.jpeg', window.location.href).href,
+              sizes: '512x512',
+              type: 'image/jpeg'
+            }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
+        const link = document.getElementById('dynamic-manifest');
+        if (link) link.href = URL.createObjectURL(blob);
+      } catch (e) {
+        // Safe fallback
+      }
+    }
+
+    // =========================================================================
+    // SUPABASE CLIENT + ZERO-400 RESILIENT SCOPED WRAPPERS
+    // =========================================================================
+    function initSupabaseClient() {
+      const url = (localStorage.getItem(STORAGE_KEYS.sbUrl) || DEFAULT_SUPABASE_URL).trim();
+      const key = (localStorage.getItem(STORAGE_KEYS.sbKey) || DEFAULT_SUPABASE_KEY).trim();
+      const urlInput = document.getElementById('cfg-sb-url');
+      const keyInput = document.getElementById('cfg-sb-key');
+      if (urlInput) urlInput.value = url;
+      if (keyInput) keyInput.value = key;
+
+      if (window.supabase && url && key) {
+        try {
+          state.sb = window.supabase.createClient(url, key, {
+            auth: { persistSession: false }
+          });
+          state.sbConnected = true;
+          updateConnectionPill(true);
+        } catch (err) {
+          state.sbConnected = false;
+          updateConnectionPill(false);
+        }
+      } else {
+        state.sbConnected = false;
+        updateConnectionPill(false);
+      }
+    }
+
+    function updateConnectionPill(isOnline) {
+      const pill = document.getElementById('supabase-status-pill');
+      if (!pill) return;
+      if (isOnline) {
+        pill.className = 'inline-flex items-center gap-1.5 font-mono text-emeraldVault';
+        pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emeraldVault animate-pulse"></span>rehg-pos-core LIVE';
+      } else {
+        pill.className = 'inline-flex items-center gap-1.5 font-mono text-sovereign';
+        pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-sovereign"></span>LOCAL VAULT CACHE';
+      }
+    }
+
+    // Zero 400 Bad Request Resilient Read Wrapper
+    async function fetchScopedOrFallback(tableName, orderCol = 'created_at', limitCount = 500) {
+      if (!state.sb) {
+        return readLocalScopedCache(tableName);
+      }
+      try {
+        let q = state.sb.from(tableName).select('*').eq('venue_id', state.venueId);
+        if (orderCol) q = q.order(orderCol, { ascending: false });
+        if (limitCount) q = q.limit(limitCount);
+        const { data, error } = await q;
+
+        if (!error && Array.isArray(data)) {
+          writeLocalScopedCache(tableName, data);
+          return data;
+        }
+
+        // If missing column (e.g. base POS table without venue_id or orderCol) -> retry unscoped cleanly
+        if (error) {
+          const msg = String(error.message || '') + ' ' + String(error.code || '');
+          // Missing table (42P01 / PGRST205): return local cache silently
+          if (msg.includes('42P01') || msg.includes('PGRST205') || msg.includes('does not exist') || msg.includes('schema cache')) {
+            return readLocalScopedCache(tableName);
+          }
+          const retry = await state.sb.from(tableName).select('*').limit(limitCount);
+          if (!retry.error && Array.isArray(retry.data)) {
+            const filtered = retry.data.filter(r => !r.venue_id || sanitizeVenueId(r.venue_id) === state.venueId);
+            return filtered;
+          }
+        }
+      } catch (e) {
+        // Silent fallback
+      }
+      return readLocalScopedCache(tableName);
+    }
+
+    // Resilient Insert / Upsert Helper (Strips unsupported columns if base POS schema rejects venue_id)
+    async function safeInsertRecord(tableName, payload, fallbackStripCols = []) {
+      const stamped = { ...payload, venue_id: state.venueId };
+      if (!state.sb) {
+        const cached = readLocalScopedCache(tableName);
+        const withId = { id: stamped.id || ('loc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7)), created_at: new Date().toISOString(), ...stamped };
+        cached.unshift(withId);
+        writeLocalScopedCache(tableName, cached);
+        return { data: withId, offline: true };
+      }
+
+      try {
+        const { data, error } = await state.sb.from(tableName).insert([stamped]).select();
+        if (!error && data && data[0]) {
+          return { data: data[0], offline: false };
+        }
+        if (error && fallbackStripCols.length > 0) {
+          const trimmed = { ...stamped };
+          fallbackStripCols.forEach(c => delete trimmed[c]);
+          const retry = await state.sb.from(tableName).insert([trimmed]).select();
+          if (!retry.error && retry.data && retry.data[0]) {
+            return { data: retry.data[0], offline: false };
+          }
+        }
+      } catch (e) {
+        // Fallback to local scoped vault so UX never stalls
+      }
+
+      const cached = readLocalScopedCache(tableName);
+      const localRec = { id: stamped.id || ('loc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7)), created_at: new Date().toISOString(), ...stamped };
+      cached.unshift(localRec);
+      writeLocalScopedCache(tableName, cached);
+      return { data: localRec, offline: true };
+    }
+
+    async function safeUpdateRecord(tableName, idVal, patchObj) {
+      if (state.sb && idVal && !String(idVal).startsWith('loc_')) {
+        try {
+          const { data, error } = await state.sb.from(tableName).update(patchObj).eq('id', idVal).select();
+          if (!error && data && data[0]) {
+            return data[0];
+          }
+        } catch (e) {
+          // Continue to local cache patch
+        }
+      }
+      const cached = readLocalScopedCache(tableName);
+      const idx = cached.findIndex(r => String(r.id) === String(idVal));
+      if (idx !== -1) {
+        cached[idx] = { ...cached[idx], ...patchObj };
+        writeLocalScopedCache(tableName, cached);
+        return cached[idx];
+      }
+      return null;
+    }
+
+    // Dynamic Multi-Tenant Venue Discovery Across orders, vip_reservations & feeder_campaigns
+    async function discoverActiveTenantScopes() {
+      const set = new Set([DEFAULT_VENUE_ID, state.venueId]);
+      if (state.sb) {
+        const probeTables = ['vip_reservations', 'feeder_campaigns', 'orders'];
+        for (const tbl of probeTables) {
+          try {
+            const { data, error } = await state.sb.from(tbl).select('venue_id').limit(250);
+            if (!error && Array.isArray(data)) {
+              data.forEach(row => {
+                if (row && row.venue_id) {
+                  const cleaned = sanitizeVenueId(row.venue_id);
+                  if (cleaned.length >= 3) set.add(cleaned);
+                }
+              });
+            }
+          } catch (e) {
+            // Ignore if column not present on base table
+          }
+        }
+      }
+      state.knownVenues = Array.from(set).sort();
+      syncVenueDropdownOptions();
+    }
+
+    function syncVenueDropdownOptions() {
+      const headerSel = document.getElementById('header-venue-select');
+      const vaultSel = document.getElementById('vault-venue-select');
+      const html = state.knownVenues
+        .map(v => '<option value="' + esc(v) + '"' + (v === state.venueId ? ' selected' : '') + '>' + esc(v) + '</option>')
+        .join('');
+      if (headerSel) headerSel.innerHTML = html;
+      if (vaultSel) vaultSel.innerHTML = html;
+
+      const badge = document.getElementById('header-venue-badge');
+      if (badge) badge.textContent = state.venueId;
+      const mktScope = document.getElementById('mkt-scope-readout');
+      if (mktScope) mktScope.textContent = state.venueId;
+      const gasLbl = document.getElementById('gas-ActiveVenueLabel');
+      if (gasLbl) gasLbl.textContent = state.venueId;
+    }
+
+    // =========================================================================
+    // STEALTH PIN GATE + ROLE-ISOLATED GOVERNANCE (OWNER vs PIN-MKT)
+    // =========================================================================
+    function focusPinInput() {
+      const inp = document.getElementById('stealth-pin-input');
+      if (inp && !document.getElementById('pin-gate-overlay').classList.contains('hidden')) {
+        inp.focus();
+      }
+    }
+
+    function wipePinInput() {
+      const inp = document.getElementById('stealth-pin-input');
+      if (inp) inp.value = '';
+    }
+
+    function handleStealthPinInput(inputEl) {
+      const digits = String(inputEl.value || '').replace(/\D/g, '').slice(0, 4);
+      inputEl.value = digits;
+      if (digits.length === 4) {
+        verifyStealthPin(digits);
+      }
+    }
+
+    function verifyStealthPin(code) {
+      const masterPin = '2424';
+      const ceoFallbackPin = '1316';
+      const configuredOwner = String(state.ownerPin || '2424').trim();
+      const configuredMkt = String(state.mktPin || '3131').trim();
+
+      if (code === masterPin || code === ceoFallbackPin || code === configuredOwner) {
+        wipePinInput();
+        unlockSessionWithRole('OWNER');
+        return;
+      }
+      if (code === configuredMkt) {
+        wipePinInput();
+        unlockSessionWithRole('PIN_MKT');
+        return;
+      }
+
+      // Wrong PIN: shake stealth pill & wipe cleanly
+      wipePinInput();
+      const shell = document.getElementById('pin-pill-shell');
+      if (shell) {
+        shell.classList.remove('pin-shake');
+        void shell.offsetWidth;
+        shell.classList.add('pin-shake');
+      }
+    }
+
+    function unlockSessionWithRole(role) {
+      state.role = role;
+      document.getElementById('pin-gate-overlay').classList.add('hidden');
+      document.getElementById('app-header').classList.remove('hidden');
+      document.getElementById('app-main').classList.remove('hidden');
+      applyRoleIsolationUI();
+      refreshAllTelemetry(false);
+    }
+
+    function lockSession() {
+      state.role = null;
+      wipePinInput();
+      document.getElementById('app-header').classList.add('hidden');
+      document.getElementById('app-main').classList.add('hidden');
+      document.getElementById('pin-gate-overlay').classList.remove('hidden');
+      setTimeout(focusPinInput, 60);
+    }
+    // === END OF PART 4 ===
+    function applyRoleIsolationUI() {
+      const isOwner = state.role === 'OWNER';
+      const badge = document.getElementById('header-role-badge');
+      if (badge) {
+        if (isOwner) {
+          badge.textContent = 'SOVEREIGN C-SUITE';
+          badge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-feederCyan/15 text-feederCyan border border-feederCyan/40';
+        } else {
+          badge.textContent = 'PIN-MKT CONCIERGE & MARKETING';
+          badge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-emeraldVault/15 text-emeraldVault border border-emeraldVault/40';
+        }
+      }
+
+      document.querySelectorAll('.owner-only-el').forEach(el => {
+        if (isOwner) el.classList.remove('hidden');
+        else el.classList.add('hidden');
+      });
+
+      // Tab 4 Role-Isolated Right Card (Owner Fraud Gate vs PIN-MKT Status Tracker)
+      const ownerGate = document.getElementById('owner-settlement-gate-panel');
+      const mktStatus = document.getElementById('mkt-settlement-status-panel');
+      if (ownerGate && mktStatus) {
+        if (isOwner) {
+          ownerGate.classList.remove('hidden');
+          ownerGate.classList.add('flex');
+          mktStatus.classList.add('hidden');
+          mktStatus.classList.remove('flex');
+        } else {
+          ownerGate.classList.add('hidden');
+          ownerGate.classList.remove('flex');
+          mktStatus.classList.remove('hidden');
+          mktStatus.classList.add('flex');
+        }
+      }
+
+      // Tab 5 Role-Isolated GAS Provisioner & Guardrail Config
+      const ownerGas = document.getElementById('owner-gas-bridge-panel');
+      const mktGas = document.getElementById('mkt-gas-locked-panel');
+      const ownerGuard = document.getElementById('owner-guardrail-controls');
+      const mktGuard = document.getElementById('mkt-guardrail-readonly');
+      if (ownerGas && mktGas) {
+        ownerGas.classList.toggle('hidden', !isOwner);
+        ownerGas.classList.toggle('flex', isOwner);
+        mktGas.classList.toggle('hidden', isOwner);
+        mktGas.classList.toggle('flex', !isOwner);
+      }
+      if (ownerGuard && mktGuard) {
+        ownerGuard.classList.toggle('hidden', !isOwner);
+        mktGuard.classList.toggle('hidden', isOwner);
+      }
+    }
+
+    // =========================================================================
+    // NAVIGATION, INGESTION MODE, MULTI-TENANT SCOPE & DATE HORIZON
+    // =========================================================================
+    function switchFeederTab(tabId) {
+      state.activeTab = tabId;
+      document.querySelectorAll('.feeder-tab-panel').forEach(sec => {
+        sec.classList.toggle('hidden', sec.id !== tabId);
+      });
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.toggle('nav-tab-active', btn.getAttribute('data-tab') === tabId);
+      });
+    }
+
+    function setIngestionMode(mode) {
+      state.ingestionMode = mode === 'STANDALONE_CSV' ? 'STANDALONE_CSV' : 'CARBON_POS_LIVE';
+      localStorage.setItem(STORAGE_KEYS.mode, state.ingestionMode);
+
+      const liveBtn = document.getElementById('mode-btn-live');
+      const csvBtn = document.getElementById('mode-btn-csv');
+      const banner = document.getElementById('csv-bridge-banner');
+
+      if (state.ingestionMode === 'CARBON_POS_LIVE') {
+        if (liveBtn) liveBtn.className = 'px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide transition bg-feederCyan/20 text-feederCyan border border-feederCyan/50';
+        if (csvBtn) csvBtn.className = 'px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide transition text-slate-400 hover:text-white border border-transparent';
+        if (banner) banner.classList.add('hidden');
+      } else {
+        if (csvBtn) csvBtn.className = 'px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide transition bg-feederCyan/20 text-feederCyan border border-feederCyan/50';
+        if (liveBtn) liveBtn.className = 'px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide transition text-slate-400 hover:text-white border border-transparent';
+        if (banner) banner.classList.remove('hidden');
+      }
+      renderAllTabs();
+    }
+
+    function switchActiveVenue(rawVenue) {
+      const sanitized = sanitizeVenueId(rawVenue);
+      state.venueId = sanitized;
+      localStorage.setItem(STORAGE_KEYS.venueId, sanitized);
+      if (!state.knownVenues.includes(sanitized)) {
+        state.knownVenues.push(sanitized);
+        state.knownVenues.sort();
+      }
+      syncVenueDropdownOptions();
+      renderGasBridgeProvisioner();
+      refreshAllTelemetry(true);
+    }
+
+    function applyCustomVenueScope() {
+      const inp = document.getElementById('vault-custom-venue');
+      if (!inp) return;
+      const cleaned = sanitizeVenueId(inp.value);
+      inp.value = '';
+      switchActiveVenue(cleaned);
+    }
+
+    function setDateHorizon(range) {
+      state.dateHorizon = range;
+      document.querySelectorAll('.horizon-btn').forEach(btn => {
+        const active = btn.getAttribute('data-range') === range;
+        btn.className = active
+          ? 'horizon-btn px-3 py-1.5 rounded-md text-xs font-bold bg-feederCyan/20 text-feederCyan border border-feederCyan/50'
+          : 'horizon-btn px-3 py-1.5 rounded-md text-xs font-bold text-slate-400 hover:text-white border border-transparent';
+      });
+      const customBox = document.getElementById('custom-date-inputs');
+      if (customBox) {
+        customBox.classList.toggle('hidden', range !== 'CUSTOM');
+        customBox.classList.toggle('flex', range === 'CUSTOM');
+      }
+      renderAllTabs();
+    }
+
+    function getActiveDateBounds() {
+      const now = new Date();
+      const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+      let start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+      let label = 'Today (' + todayIsoStr() + ')';
+
+      if (state.dateHorizon === 'WTD') {
+        const day = start.getDay();
+        const diffToMon = (day + 6) % 7;
+        start.setDate(start.getDate() - diffToMon);
+        label = 'Week-to-Date';
+      } else if (state.dateHorizon === 'MTD') {
+        start = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+        label = 'Month-to-Date';
+      } else if (state.dateHorizon === 'CUSTOM') {
+        const sVal = document.getElementById('filter-start-date')?.value;
+        const eVal = document.getElementById('filter-end-date')?.value;
+        const sDate = sVal ? new Date(sVal + 'T00:00:00') : start;
+        const eDate = eVal ? new Date(eVal + 'T23:59:59') : endOfDay;
+        label = (sVal || todayIsoStr()) + ' to ' + (eVal || todayIsoStr());
+        return { start: sDate, end: eDate, label };
+      }
+
+      // Include future reservations booked today or ahead when viewing Today/WTD/MTD if date_str matches
+      return { start, end: endOfDay, label };
+    }
+
+    function isRecordWithinHorizon(rec, dateFieldCandidates = ['reservation_date', 'shift_date', 'event_date', 'created_at']) {
+      const { start, end } = getActiveDateBounds();
+      for (const col of dateFieldCandidates) {
+        const v = rec && rec[col];
+        if (v) {
+          const rawStr = String(v);
+          const parsed = rawStr.length === 10 ? new Date(rawStr + 'T12:00:00') : new Date(rawStr);
+          if (!isNaN(parsed.getTime())) {
+            return parsed >= start && parsed <= end;
+          }
+        }
+      }
+      return true;
+    }
+
+    // =========================================================================
+    // FULL MULTI-TABLE TELEMETRY REFRESH + REALTIME SUBSCRIPTION
+    // =========================================================================
+    async function refreshAllTelemetry(toastOnComplete = false) {
+      await discoverActiveTenantScopes();
+
+      // Load venue_alert_settings if stored in Supabase
+      const alertSettings = await fetchScopedOrFallback('venue_alert_settings', null, 20);
+      if (Array.isArray(alertSettings) && alertSettings.length > 0) {
+        const row = alertSettings[0];
+        if (row.owner_pin) state.ownerPin = String(row.owner_pin);
+        if (row.mkt_pin || row.pin_mkt) state.mktPin = String(row.mkt_pin || row.pin_mkt);
+        if (Number(row.max_mktg_pct) > 0) state.guardrails.maxMktgPct = Number(row.max_mktg_pct);
+        if (Number(row.min_roas) > 0) state.guardrails.minRoas = Number(row.min_roas);
+        if (Number(row.max_comm_pct) > 0) state.guardrails.maxCommPct = Number(row.max_comm_pct);
+      }
+
+      const [vipRes, campaigns, promoters, crm, posOrders, posItems, menu, wristbands] = await Promise.all([
+        fetchScopedOrFallback('vip_reservations', 'created_at', 500),
+        fetchScopedOrFallback('feeder_campaigns', 'created_at', 300),
+        fetchScopedOrFallback('promoter_ledgers', 'created_at', 300),
+        fetchScopedOrFallback('guest_crm_contacts', 'created_at', 800),
+        fetchScopedOrFallback('orders', 'created_at', 800),
+        fetchScopedOrFallback('order_items', 'created_at', 1000),
+        fetchScopedOrFallback('menu_items', 'created_at', 500),
+        fetchScopedOrFallback('door_wristband_logs', 'created_at', 300)
+      ]);
+
+      state.vipReservations = vipRes;
+      state.feederCampaigns = campaigns;
+      state.promoterLedgers = promoters;
+      state.guestCrmContacts = crm;
+      state.orders = posOrders;
+      state.orderItems = posItems;
+      state.menuItems = menu;
+      state.doorWristbandLogs = wristbands;
+      state.csvBridgeOrders = readLocalScopedCache('csv_bridge_orders');
+
+      syncGuardrailInputsToUI();
+      renderGasBridgeProvisioner();
+      renderAllTabs();
+      bindRealtimeConciergeStream();
+
+      if (toastOnComplete) {
+        showToast('Synced multi-tenant telemetry for ' + state.venueId, 'success');
+      }
+    }
+
+    function bindRealtimeConciergeStream() {
+      if (!state.sb) return;
+      try {
+        if (state.realtimeSub) {
+          state.sb.removeChannel(state.realtimeSub);
+          state.realtimeSub = null;
+        }
+        state.realtimeSub = state.sb
+          .channel('feeder_live_' + state.venueId)
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'vip_reservations' }, () => refreshAllTelemetry(false))
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'feeder_campaigns' }, () => refreshAllTelemetry(false))
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'promoter_ledgers' }, () => refreshAllTelemetry(false))
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, () => refreshAllTelemetry(false))
+          .subscribe();
+      } catch (e) {
+        // Non-blocking realtime subscription
+      }
+    }
+
+    // =========================================================================
+    // MASTER ATTRIBUTION, P&L & PHANTOM-HEADCOUNT RECONCILIATION ENGINE
+    // =========================================================================
+    function getActiveOrdersSource() {
+      if (state.ingestionMode === 'STANDALONE_CSV' && state.csvBridgeOrders.length > 0) {
+        return state.csvBridgeOrders;
+      }
+      return state.orders.concat(state.csvBridgeOrders);
+    }
+
+    function normalizeChannelCode(raw) {
+      const u = String(raw || '').toUpperCase().trim();
+      if (!u) return 'VIP_BOOTH_DESK';
+      if (u.includes('GAS') || u.includes('WEB') || u.includes('FOOTPRINT')) return 'CARBON_GAS_FOOTPRINT';
+      if (u.includes('PAID') || u.includes('META') || u.includes('UTM') || u.includes('GEO')) return 'PAID_DIGITAL_UTM';
+      if (u.includes('SMS') || u.includes('FLASH') || u.includes('VAULT')) return 'SMS_VIP_VAULT';
+      if (u.includes('HOTEL') || u.includes('CONCIERGE') || u.includes('VALET')) return 'HOTEL_CONCIERGE';
+      if (u.includes('EVENT') || u.includes('TASTING') || u.includes('HEADLINE') || u.includes('WINE')) return 'HEADLINE_EVENTS';
+      if (u.includes('HOST') || u.includes('PROMOTER')) return 'HOST_PROMOTER';
+      if (u.includes('COMP') || u.includes('LEAK')) return 'UNATTRIBUTED_COMP_LEAKAGE';
+      return 'VIP_BOOTH_DESK';
+    }
+
+    function computePosSpendForReservation(res) {
+      const explicitActual = Number(res.actual_pos_spend || res.pos_spend || 0);
+      const tableCode = String(res.table_code || '').trim().toUpperCase();
+      const guestName = String(res.guest_name || '').trim().toLowerCase();
+
+      let matchedOrdersSum = 0;
+      const allOrders = getActiveOrdersSource();
+      allOrders.forEach(ord => {
+        if (!isRecordWithinHorizon(ord, ['created_at', 'order_date'])) return;
+        const ordTable = String(ord.table_number || ord.table_code || '').trim().toUpperCase();
+        const ordGuest = String(ord.customer_name || ord.guest_name || '').trim().toLowerCase();
+        const ordTotal = Number(ord.total_amount || ord.total || ord.gross_sales || 0);
+        if ((tableCode && ordTable && ordTable === tableCode) || (guestName && ordGuest && ordGuest === guestName)) {
+          matchedOrdersSum += ordTotal;
+        }
+      });
+
+      return Math.max(explicitActual, matchedOrdersSum);
+    }
+
+    function computeExecutiveMetrics() {
+      const channelMap = {};
+      ATTRIBUTION_CHANNELS.forEach(ch => {
+        channelMap[ch.code] = {
+          code: ch.code,
+          label: ch.label,
+          bookings: 0,
+          covers: 0,
+          spend: 0,
+          gross: 0,
+          comps: 0
+        };
+      });
+
+      let committedMins = 0;
+      let depositsHeld = 0;
+      let doorTicketRev = 0;
+      let doorBandsCount = 0;
+      let venueTotalPosGross = 0;
+
+      // 1. Aggregate POS Orders (Gross Venue Sales + Comps + Door Covers)
+      const activeOrders = getActiveOrdersSource().filter(o => isRecordWithinHorizon(o, ['created_at', 'order_date']));
+      activeOrders.forEach(ord => {
+        const gross = Number(ord.total_amount || ord.total || ord.gross_sales || 0);
+        const compAmt = Number(ord.comp_amount || ord.discount_amount || 0);
+        const promoTag = String(ord.promo_code || ord.source_channel || ord.order_type || '').toUpperCase();
+        venueTotalPosGross += gross;
+
+        if (promoTag.includes('DOOR') || promoTag.includes('TICKET') || promoTag.includes('COVER')) {
+          doorTicketRev += gross;
+        }
+        if (compAmt > 0 && !ord.campaign_id && !ord.promo_code) {
+          channelMap.UNATTRIBUTED_COMP_LEAKAGE.bookings += 1;
+          channelMap.UNATTRIBUTED_COMP_LEAKAGE.spend += compAmt;
+          channelMap.UNATTRIBUTED_COMP_LEAKAGE.comps += compAmt;
+        }
+      });
+
+      // 2. Door Wristband Logs (from Carbon Loss / Feeder)
+      state.doorWristbandLogs
+        .filter(w => isRecordWithinHorizon(w, ['shift_date', 'created_at']))
+        .forEach(w => {
+          const bands = Number(w.wristband_count || w.verified_bands || w.count || 0);
+          const rev = Number(w.door_revenue || w.cover_revenue || 0);
+          doorBandsCount += bands;
+          doorTicketRev += rev;
+        });
+
+      // 3. VIP & GAS Footprint Reservations
+      state.vipReservations
+        .filter(r => isRecordWithinHorizon(r, ['reservation_date', 'created_at']))
+        .forEach(r => {
+          const status = String(r.status || 'INQUIRY').toUpperCase();
+          if (status === 'NO_SHOW' || status === 'CANCELLED') return;
+          const ch = normalizeChannelCode(r.source_channel);
+          const minSpend = Number(r.min_spend || r.table_minimum || 0);
+          const dep = Number(r.deposit_amount || 0);
+          const posActual = computePosSpendForReservation(r);
+          const attributedRev = posActual > 0 ? posActual : (status === 'ARRIVED' || status === 'CLOSED' ? minSpend : dep);
+
+          committedMins += minSpend;
+          depositsHeld += dep;
+          channelMap[ch].bookings += 1;
+          channelMap[ch].covers += Number(r.party_size || 0);
+          channelMap[ch].gross += attributedRev;
+        });
+
+      // 4. Marketing Campaigns & Live POS Package Redemptions
+      state.feederCampaigns
+        .filter(c => isRecordWithinHorizon(c, ['created_at', 'event_date']))
+        .forEach(c => {
+          const status = String(c.approval_status || 'PENDING').toUpperCase();
+          if (status === 'REJECTED') return;
+          const ch = normalizeChannelCode(c.channel);
+          const budget = Number(c.ad_spend || 0) + Number(c.talent_spend || 0);
+          const liveRev = Number(c.attributed_revenue || 0);
+          const redemptions = Number(c.redemptions_count || 0);
+
+          if (status === 'APPROVED' || status === 'LIVE_POS') {
+            channelMap[ch].spend += budget;
+            channelMap[ch].gross += liveRev;
+            channelMap[ch].bookings += redemptions;
+            channelMap[ch].covers += Number(c.verified_covers || redemptions || 0);
+          }
+        });
+
+      // 5. Promoter & Concierge Ledgers
+      state.promoterLedgers
+        .filter(p => isRecordWithinHorizon(p, ['shift_date', 'created_at']))
+        .forEach(p => {
+          const status = String(p.settlement_status || 'PENDING').toUpperCase();
+          if (status === 'REJECTED') return;
+          const roleStr = String(p.partner_role || '').toUpperCase();
+          const ch = roleStr.includes('HOTEL') || roleStr.includes('VALET') ? 'HOTEL_CONCIERGE' : 'HOST_PROMOTER';
+          const bands = Number(p.verified_bands || 0);
+          const posGross = Number(p.pos_table_spend || 0);
+          const dRev = Number(p.door_cover_rev || 0);
+          const payout = Number(p.calculated_payout || 0);
+
+          doorBandsCount += bands;
+          doorTicketRev += dRev;
+          channelMap[ch].bookings += 1;
+          channelMap[ch].covers += bands;
+          channelMap[ch].spend += payout;
+          channelMap[ch].gross += posGross + dRev;
+        });
+
+      let attributedGross = 0;
+      let attributedCovers = 0;
+      let totalMktgAndCommSpend = 0;
+
+      Object.values(channelMap).forEach(c => {
+        attributedGross += c.gross;
+        attributedCovers += c.covers;
+        totalMktgAndCommSpend += c.spend;
+      });
+
+      const denominatorSales = Math.max(venueTotalPosGross, attributedGross);
+      const mktgPctOfGross = denominatorSales > 0 ? (totalMktgAndCommSpend / denominatorSales) * 100 : 0;
+      const blendedRoas = totalMktgAndCommSpend > 0 ? attributedGross / totalMktgAndCommSpend : 0;
+      const estCogs = attributedGross * (state.guardrails.blendedCogsPct / 100);
+      const netPnlContribution = attributedGross - estCogs - totalMktgAndCommSpend;
+
+      return {
+        channelRows: ATTRIBUTION_CHANNELS.map(ch => channelMap[ch.code]),
+        attributedGross,
+        attributedCovers,
+        committedMins,
+        depositsHeld,
+        totalMktgAndCommSpend,
+        mktgPctOfGross,
+        blendedRoas,
+        doorTicketRev,
+        doorBandsCount,
+        netPnlContribution
+      };
+    }
+    // === END OF PART 5 ===
+    // =========================================================================
+    // SILENT REAL-TIME P&L + CARBON LOSS DOVETAIL SYNC
+    // =========================================================================
+    async function silentSyncPnlAndLossSnapshot(metrics) {
+      if (!state.sb || state.role !== 'OWNER') return;
+
+      const snapshotHash = [
+        state.venueId,
+        todayIsoStr(),
+        metrics.attributedGross.toFixed(2),
+        metrics.totalMktgAndCommSpend.toFixed(2),
+        metrics.netPnlContribution.toFixed(2)
+      ].join('|');
+
+      if (state.lastPnlSyncHash === snapshotHash) return;
+      state.lastPnlSyncHash = snapshotHash;
+
+      const pill = document.getElementById('pnl-sync-indicator');
+      if (pill) pill.textContent = 'P&L + Loss Sync: SYNCING...';
+
+      try {
+        await safeInsertRecord(
+          'venue_realtime_pnl_snapshots',
+          {
+            snapshot_date: todayIsoStr(),
+            source_engine: 'CARBON_FEEDER',
+            attributed_gross_sales: Number(metrics.attributedGross.toFixed(2)),
+            marketing_and_promoter_spend: Number(metrics.totalMktgAndCommSpend.toFixed(2)),
+            marketing_pct_of_gross: Number(metrics.mktgPctOfGross.toFixed(2)),
+            blended_roas: Number(metrics.blendedRoas.toFixed(2)),
+            door_ticket_revenue: Number(metrics.doorTicketRev.toFixed(2)),
+            net_pnl_contribution: Number(metrics.netPnlContribution.toFixed(2))
+          },
+          ['source_engine']
+        );
+        if (pill) pill.textContent = 'P&L + Loss Sync: LIVE (' + state.venueId + ')';
+      } catch (e) {
+        if (pill) pill.textContent = 'P&L + Loss Sync: LOCAL BUFFER';
+      }
+    }
+
+    async function silentLogShrinkageAuditVariance(title, varianceDollars, notesStr) {
+      if (!state.sb) return;
+      try {
+        await safeInsertRecord(
+          'loss_shelf_audits',
+          {
+            audit_date: todayIsoStr(),
+            category: 'FEEDER_PHANTOM_HEADCOUNT_OR_PROMO',
+            item_name: title,
+            variance_cost: Number((Number(varianceDollars) || 0).toFixed(2)),
+            notes: notesStr,
+            recorded_by_role: state.role || 'OWNER'
+          },
+          ['recorded_by_role']
+        );
+      } catch (e) {
+        // Silent dovetail into Carbon Loss
+      }
+    }
+
+    // =========================================================================
+    // RENDER TAB 1 — C-SUITE ROI & 8-CHANNEL ATTRIBUTION MATRIX
+    // =========================================================================
+    function renderTab1Command() {
+      const isOwner = state.role === 'OWNER';
+      const bounds = getActiveDateBounds();
+      const winLbl = document.getElementById('active-window-label');
+      if (winLbl) winLbl.textContent = 'Window: ' + bounds.label;
+
+      const m = computeExecutiveMetrics();
+
+      document.getElementById('lbl-g-mkt').textContent = state.guardrails.maxMktgPct.toFixed(1) + '%';
+      document.getElementById('lbl-g-roas').textContent = state.guardrails.minRoas.toFixed(1) + 'x';
+      document.getElementById('lbl-g-comm').textContent = state.guardrails.maxCommPct.toFixed(1) + '%';
+
+      document.getElementById('kpi-attributed-gross').textContent = fmtMoney(m.attributedGross);
+      document.getElementById('kpi-attributed-covers').textContent = m.attributedCovers + ' Covers';
+      document.getElementById('kpi-committed-mins').textContent = fmtMoney(m.committedMins);
+      document.getElementById('kpi-vip-deposits').textContent = fmtMoney(m.depositsHeld) + ' Dep';
+      document.getElementById('kpi-mktg-pct').textContent = fmtPct(m.mktgPctOfGross);
+
+      const mktBadge = document.getElementById('kpi-mktg-guard-badge');
+      if (mktBadge) {
+        if (m.mktgPctOfGross <= state.guardrails.maxMktgPct) {
+          mktBadge.textContent = '<=' + state.guardrails.maxMktgPct.toFixed(1) + '% CAP';
+          mktBadge.className = 'px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emeraldVault/15 text-emeraldVault';
+        } else {
+          mktBadge.textContent = 'OVER ' + state.guardrails.maxMktgPct.toFixed(1) + '%';
+          mktBadge.className = 'px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-crimson/20 text-crimson';
+        }
+      }
+
+      document.getElementById('kpi-blended-roas').textContent = m.blendedRoas.toFixed(1) + 'x';
+      const roasBadge = document.getElementById('kpi-roas-guard-badge');
+      if (roasBadge) {
+        if (m.totalMktgAndCommSpend === 0) {
+          roasBadge.textContent = state.guardrails.minRoas.toFixed(1) + 'x MIN';
+          roasBadge.className = 'px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300';
+        } else if (m.blendedRoas >= state.guardrails.minRoas) {
+          roasBadge.textContent = 'ABOVE ' + state.guardrails.minRoas.toFixed(1) + 'x';
+          roasBadge.className = 'px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emeraldVault/15 text-emeraldVault';
+        } else {
+          roasBadge.textContent = 'BELOW ' + state.guardrails.minRoas.toFixed(1) + 'x';
+          roasBadge.className = 'px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-crimson/20 text-crimson';
+        }
+      }
+
+      document.getElementById('kpi-door-ticket-rev').textContent = fmtMoney(m.doorTicketRev);
+      document.getElementById('kpi-door-bands-count').textContent = m.doorBandsCount + ' Bands';
+
+      // Role-Isolated Card 6 (PIN-MKT NEVER sees Owner Net P&L Margins!)
+      const c6Lbl = document.getElementById('kpi-card6-label');
+      const c6Val = document.getElementById('kpi-card6-val');
+      const c6Sub = document.getElementById('kpi-card6-sub');
+      const thNet = document.getElementById('th-channel-net-or-status');
+
+      if (isOwner) {
+        c6Lbl.textContent = 'Net Marketing & VIP P&L';
+        c6Val.textContent = fmtMoney(m.netPnlContribution);
+        c6Val.className = 'text-xl sm:text-2xl font-extrabold font-mono ' + (m.netPnlContribution >= 0 ? 'text-emeraldVault' : 'text-crimson');
+        c6Sub.textContent = 'After COGS+Mktg';
+        if (thNet) thNet.textContent = 'Net P&L / C-Suite Verdict';
+      } else {
+        const activeResCount = state.vipReservations.filter(r => isRecordWithinHorizon(r, ['reservation_date', 'created_at'])).length;
+        c6Lbl.textContent = 'Active Concierge Bookings';
+        c6Val.textContent = String(activeResCount);
+        c6Val.className = 'text-xl sm:text-2xl font-extrabold font-mono text-feederCyan';
+        c6Sub.textContent = m.attributedCovers + ' Verified Guests';
+        if (thNet) thNet.textContent = 'Channel Activity Status';
+      }
+
+      const tbody = document.getElementById('attribution-matrix-tbody');
+      const visibleChannels = isOwner
+        ? m.channelRows
+        : m.channelRows.filter(r => r.code !== 'UNATTRIBUTED_COMP_LEAKAGE');
+
+      tbody.innerHTML = visibleChannels.map(ch => {
+        const cac = ch.covers > 0 ? ch.spend / ch.covers : 0;
+        const roas = ch.spend > 0 ? ch.gross / ch.spend : 0;
+        const net = ch.gross - (ch.gross * (state.guardrails.blendedCogsPct / 100)) - ch.spend;
+
+        let rightColHtml = '';
+        if (isOwner) {
+          if (ch.code === 'UNATTRIBUTED_COMP_LEAKAGE') {
+            rightColHtml = ch.spend > 0
+              ? '<span class="px-2 py-0.5 rounded bg-crimson/20 text-crimson font-bold">-' + esc(fmtMoney(ch.spend)) + ' COMP LEAK</span>'
+              : '<span class="text-slate-500">$0.00 CLEAN</span>';
+          } else if (ch.spend === 0 && ch.gross === 0) {
+            rightColHtml = '<span class="text-slate-500">$0.00</span>';
+          } else if (ch.spend === 0 || roas >= state.guardrails.minRoas) {
+            rightColHtml = '<span class="text-emeraldVault font-bold">' + esc(fmtMoney(net)) + ' (WITHIN ROI)</span>';
+          } else {
+            rightColHtml = '<span class="text-crimson font-bold">' + esc(fmtMoney(net)) + ' (OUTSIDE ' + esc(state.guardrails.minRoas.toFixed(1)) + 'x)</span>';
+          }
+        } else {
+          rightColHtml = (ch.bookings > 0 || ch.gross > 0)
+            ? '<span class="px-2 py-0.5 rounded bg-feederCyan/15 text-feederCyan font-bold">ACTIVE STREAM</span>'
+            : '<span class="text-slate-500">STANDBY</span>';
+        }
+
+        return (
+          '<tr class="hover:bg-slate-900/50 transition">' +
+            '<td class="py-2.5 px-3 font-sans font-semibold text-slate-200">' + esc(ch.label) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(ch.bookings) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(ch.covers) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(fmtMoney(ch.spend)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-white font-semibold">' + esc(fmtMoney(ch.gross)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-feederCyan">' + esc(fmtMoney(cac)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right ' + (roas >= state.guardrails.minRoas ? 'text-emeraldVault' : 'text-slate-300') + '">' + (ch.spend > 0 ? esc(roas.toFixed(1) + 'x') : '—') + '</td>' +
+            '<td class="py-2.5 px-3 text-right">' + rightColHtml + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+
+      if (m.attributedGross > 0 || m.totalMktgAndCommSpend > 0) {
+        silentSyncPnlAndLossSnapshot(m);
+      }
+    }
+
+    // =========================================================================
+    // TAB 2 — LIVE VIP BOOTH, DINING & GAS DIGITAL FOOTPRINT CONCIERGE
+    // =========================================================================
+    async function handleCreateVipReservation(e) {
+      e.preventDefault();
+      const guestName = document.getElementById('res-guest-name').value.trim();
+      if (!guestName) return;
+
+      const payload = {
+        guest_name: guestName,
+        guest_phone: document.getElementById('res-guest-phone').value.trim(),
+        guest_email: document.getElementById('res-guest-email').value.trim(),
+        reservation_date: document.getElementById('res-date').value || todayIsoStr(),
+        reservation_time: document.getElementById('res-time').value || '21:00',
+        party_size: Number(document.getElementById('res-party-size').value) || 2,
+        table_code: document.getElementById('res-table-code').value.trim().toUpperCase(),
+        section_tier: document.getElementById('res-section-tier').value,
+        source_channel: document.getElementById('res-source-channel').value,
+        min_spend: Number(document.getElementById('res-min-spend').value) || 0,
+        deposit_amount: Number(document.getElementById('res-deposit').value) || 0,
+        accounting_ref: document.getElementById('res-host-ref').value.trim(),
+        notes: document.getElementById('res-notes').value.trim(),
+        status: 'CONFIRMED'
+      };
+
+      const res = await safeInsertRecord('vip_reservations', payload, ['accounting_ref']);
+      state.vipReservations.unshift(res.data);
+
+      // Auto-Upsert Guest Profile into Black Book CRM
+      await upsertGuestIntoBlackBook({
+        guest_name: payload.guest_name,
+        phone: payload.guest_phone,
+        email: payload.guest_email,
+        preferred_section: payload.section_tier,
+        notes: payload.notes,
+        lifetime_spend: payload.deposit_amount,
+        visit_count: 1
+      });
+
+      e.target.reset();
+      document.getElementById('res-date').value = todayIsoStr();
+      document.getElementById('res-time').value = '21:00';
+      document.getElementById('res-party-size').value = '4';
+      document.getElementById('res-min-spend').value = '0';
+      document.getElementById('res-deposit').value = '0';
+
+      renderAllTabs();
+      showToast('Locked VIP reservation for ' + payload.guest_name, 'success');
+    }
+
+    async function upsertGuestIntoBlackBook(g) {
+      const normName = String(g.guest_name || '').trim().toLowerCase();
+      const normPhone = String(g.phone || '').replace(/\D/g, '');
+      const existing = state.guestCrmContacts.find(c => {
+        const cPhone = String(c.phone || '').replace(/\D/g, '');
+        const cName = String(c.guest_name || '').trim().toLowerCase();
+        return (normPhone && cPhone && normPhone === cPhone) || (normName && cName === normName);
+      });
+
+      if (existing) {
+        const updatedSpend = (Number(existing.lifetime_spend) || 0) + (Number(g.lifetime_spend) || 0);
+        const updatedVisits = (Number(existing.visit_count) || 1) + 1;
+        await safeUpdateRecord('guest_crm_contacts', existing.id, {
+          lifetime_spend: updatedSpend,
+          visit_count: updatedVisits,
+          preferred_section: g.preferred_section || existing.preferred_section || ''
+        });
+        existing.lifetime_spend = updatedSpend;
+        existing.visit_count = updatedVisits;
+      } else {
+        const inserted = await safeInsertRecord('guest_crm_contacts', {
+          guest_name: g.guest_name,
+          phone: g.phone || '',
+          email: g.email || '',
+          preferred_section: g.preferred_section || '',
+          notes: g.notes || '',
+          visit_count: Number(g.visit_count) || 1,
+          lifetime_spend: Number(g.lifetime_spend) || 0
+        });
+        state.guestCrmContacts.unshift(inserted.data);
+      }
+    }
+
+    async function updateVipReservationStatus(resId, nextStatus) {
+      await safeUpdateRecord('vip_reservations', resId, { status: nextStatus });
+      const target = state.vipReservations.find(r => String(r.id) === String(resId));
+      if (target) target.status = nextStatus;
+      renderAllTabs();
+      showToast('Reservation updated to ' + nextStatus, 'info');
+    }
+
+    async function logManualCheckSpendOnReservation(resId) {
+      const target = state.vipReservations.find(r => String(r.id) === String(resId));
+      if (!target) return;
+      const cur = computePosSpendForReservation(target);
+      const raw = window.prompt('Update verified POS check spend ($) for ' + target.guest_name + ':', String(cur || 0));
+      if (raw === null) return;
+      const num = Math.max(0, Number(raw) || 0);
+      await safeUpdateRecord('vip_reservations', resId, { actual_pos_spend: num });
+      target.actual_pos_spend = num;
+      renderAllTabs();
+      showToast('Updated live check pacing to ' + fmtMoney(num), 'success');
+    }
+
+    function copyVelvetRopeSms(resId) {
+      const r = state.vipReservations.find(x => String(x.id) === String(resId));
+      if (!r) return;
+      const minTxt = Number(r.min_spend) > 0 ? ' | Table Min: ' + fmtMoney(r.min_spend) : '';
+      const depTxt = Number(r.deposit_amount) > 0 ? ' (Deposit Verified: ' + fmtMoney(r.deposit_amount) + ')' : '';
+      const sms =
+        'VIP CONCIERGE CONFIRMATION [' + state.venueId + ']: Welcome ' + r.guest_name +
+        '. Your ' + (r.section_tier || 'VIP') + (r.table_code ? ' (' + r.table_code + ')' : '') +
+        ' for ' + (r.party_size || 2) + ' guests is locked for ' + (r.reservation_date || todayIsoStr()) +
+        ' at ' + (r.reservation_time || '21:00') + minTxt + depTxt +
+        '. Present this message at the Velvet-Rope Concierge podium upon arrival.';
+      navigator.clipboard.writeText(sms).then(() => {
+        showToast('Copied Velvet-Rope VIP SMS confirmation to clipboard!', 'success');
+      });
+    }
+
+    function renderTab2Concierge() {
+      const statusFilter = document.getElementById('concierge-status-filter')?.value || 'ALL';
+      const inquiryCount = state.vipReservations.filter(r => String(r.status || 'INQUIRY').toUpperCase() === 'INQUIRY').length;
+      const navBadge = document.getElementById('nav-inquiry-badge');
+      if (navBadge) {
+        navBadge.textContent = String(inquiryCount);
+        navBadge.classList.toggle('hidden', inquiryCount === 0);
+      }
+
+      const filtered = state.vipReservations.filter(r => {
+        if (statusFilter === 'ALL') return true;
+        return String(r.status || 'INQUIRY').toUpperCase() === statusFilter;
+      });
+
+      const listEl = document.getElementById('concierge-queue-list');
+      if (!filtered.length) {
+        listEl.innerHTML =
+          '<div class="carbon-subcard rounded-xl p-6 text-center text-xs text-slate-400">' +
+            'Zero active reservations in queue for <strong class="font-mono text-feederCyan">' + esc(state.venueId) + '</strong>. ' +
+            'Bookings pushed from your Carbon GAS Digital Footprint or entered on the left stream here in real time.' +
+          '</div>';
+      } else {
+        listEl.innerHTML = filtered.map(r => {
+          const status = String(r.status || 'INQUIRY').toUpperCase();
+          const isGas = normalizeChannelCode(r.source_channel) === 'CARBON_GAS_FOOTPRINT';
+          const minSpend = Number(r.min_spend || 0);
+          const posSpend = computePosSpendForReservation(r);
+          const pctPace = minSpend > 0 ? Math.min(100, (posSpend / minSpend) * 100) : 100;
+
+          let stBadge = 'bg-slate-800 text-slate-300';
+          if (status === 'INQUIRY') stBadge = 'bg-sovereign/20 text-sovereign border border-sovereign/40';
+          if (status === 'CONFIRMED') stBadge = 'bg-feederCyan/20 text-feederCyan border border-feederCyan/40';
+          if (status === 'ARRIVED') stBadge = 'bg-emeraldVault/20 text-emeraldVault border border-emeraldVault/40';
+          if (status === 'NO_SHOW') stBadge = 'bg-crimson/20 text-crimson border border-crimson/40';
+
+          return (
+            '<div class="carbon-subcard rounded-xl p-3.5 space-y-2.5">' +
+              '<div class="flex flex-wrap items-start justify-between gap-2">' +
+                '<div>' +
+                  '<div class="flex flex-wrap items-center gap-1.5">' +
+                    '<strong class="text-sm font-bold text-white">' + esc(r.guest_name) + '</strong>' +
+                    '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ' + stBadge + '">' + esc(status) + '</span>' +
+                    (isGas ? '<span class="px-1.5 py-0.5 rounded bg-emeraldVault/15 border border-emeraldVault/40 text-emeraldVault text-[9px] font-mono font-bold">GAS WORKSPACE VERIFIED</span>' : '') +
+                  '</div>' +
+                  '<div class="text-[11px] font-mono text-slate-400 mt-0.5">' +
+                    esc(r.reservation_date || todayIsoStr()) + ' @ ' + esc(r.reservation_time || '21:00') +
+                    ' • Party of ' + esc(r.party_size || 2) +
+                    ' • <span class="text-feederCyan">' + esc(r.section_tier || 'Main Dining') + '</span>' +
+                    (r.table_code ? ' [' + esc(r.table_code) + ']' : '') +
+                  '</div>' +
+                '</div>' +
+                '<div class="text-right font-mono text-xs">' +
+                  '<div class="text-white font-bold">Min: ' + esc(fmtMoney(minSpend)) + '</div>' +
+                  '<div class="text-[10px] text-slate-400">POS: ' + esc(fmtMoney(posSpend)) + ' | Dep: ' + esc(fmtMoney(r.deposit_amount || 0)) + '</div>' +
+                '</div>' +
+              '</div>' +
+              (minSpend > 0
+                ? '<div class="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden"><div class="h-full ' + (posSpend >= minSpend ? 'bg-emeraldVault' : 'bg-feederCyan') + '" style="width:' + pctPace.toFixed(0) + '%"></div></div>'
+                : '') +
+              (r.notes ? '<p class="text-[11px] text-slate-400">' + esc(r.notes) + '</p>' : '') +
+              '<div class="flex flex-wrap items-center justify-between gap-1.5 pt-1 border-t border-slate-800/80">' +
+                '<div class="flex flex-wrap gap-1">' +
+                  '<button type="button" onclick="updateVipReservationStatus(\'' + esc(r.id) + '\', \'CONFIRMED\')" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[10px] font-bold text-feederCyan">Confirm</button>' +
+                  '<button type="button" onclick="updateVipReservationStatus(\'' + esc(r.id) + '\', \'ARRIVED\')" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[10px] font-bold text-emeraldVault">Seated</button>' +
+                  '<button type="button" onclick="updateVipReservationStatus(\'' + esc(r.id) + '\', \'CLOSED\')" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[10px] font-bold text-slate-200">Close</button>' +
+                  '<button type="button" onclick="updateVipReservationStatus(\'' + esc(r.id) + '\', \'NO_SHOW\')" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[10px] font-bold text-crimson">No-Show</button>' +
+                '</div>' +
+                '<div class="flex flex-wrap gap-1.5">' +
+                  '<button type="button" onclick="logManualCheckSpendOnReservation(\'' + esc(r.id) + '\')" class="px-2 py-1 rounded bg-[#050811] border border-slate-700 hover:border-feederCyan text-[10px] font-mono text-slate-300">$ Check Pace</button>' +
+                  '<button type="button" onclick="copyVelvetRopeSms(\'' + esc(r.id) + '\')" class="px-2.5 py-1 rounded bg-feederCyan/15 hover:bg-feederCyan hover:text-obsidian border border-feederCyan/40 text-[10px] font-bold text-feederCyan transition">📲 Velvet-Rope SMS</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+      }
+
+      // Render Row 2: Floor Section Allocation & Minimum-Spend Pacing Matrix
+      let totalFloorMins = 0;
+      let totalFloorActual = 0;
+
+      const secMap = {};
+      FLOOR_SECTIONS.forEach(sec => {
+        secMap[sec] = { section: sec, bookings: 0, covers: 0, deposits: 0, mins: 0, actual: 0 };
+      });
+
+      state.vipReservations
+        .filter(r => isRecordWithinHorizon(r, ['reservation_date', 'created_at']))
+        .forEach(r => {
+          const st = String(r.status || 'INQUIRY').toUpperCase();
+          if (st === 'NO_SHOW' || st === 'CANCELLED') return;
+          const sec = secMap[r.section_tier] ? r.section_tier : 'Main Dining';
+          const minVal = Number(r.min_spend || 0);
+          const actVal = computePosSpendForReservation(r);
+          secMap[sec].bookings += 1;
+          secMap[sec].covers += Number(r.party_size || 0);
+          secMap[sec].deposits += Number(r.deposit_amount || 0);
+          secMap[sec].mins += minVal;
+          secMap[sec].actual += actVal;
+          totalFloorMins += minVal;
+          totalFloorActual += actVal;
+        });
+
+      const floorPill = document.getElementById('floor-pacing-totals-pill');
+      if (floorPill) {
+        floorPill.textContent = 'Committed Mins: ' + fmtMoney(totalFloorMins) + ' | Live POS Check Spend: ' + fmtMoney(totalFloorActual);
+      }
+
+      document.getElementById('floor-section-matrix-tbody').innerHTML = FLOOR_SECTIONS.map(secName => {
+        const s = secMap[secName];
+        const unmet = Math.max(0, s.mins - s.actual);
+        const cleared = s.mins > 0 && s.actual >= s.mins;
+        return (
+          '<tr class="hover:bg-slate-900/50">' +
+            '<td class="py-2.5 px-3 font-sans font-semibold text-white">' + esc(s.section) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(s.bookings) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(s.covers) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(fmtMoney(s.deposits)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-feederCyan font-semibold">' + esc(fmtMoney(s.mins)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-white font-semibold">' + esc(fmtMoney(s.actual)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right ' + (unmet > 0 ? 'text-sovereign' : 'text-slate-500') + '">' + esc(fmtMoney(unmet)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right">' +
+              (s.bookings === 0
+                ? '<span class="text-slate-500">OPEN</span>'
+                : cleared
+                  ? '<span class="px-2 py-0.5 rounded bg-emeraldVault/15 text-emeraldVault font-bold">MIN CLEARED</span>'
+                  : '<span class="px-2 py-0.5 rounded bg-feederCyan/15 text-feederCyan font-bold">PACING</span>') +
+            '</td>' +
+          '</tr>'
+        );
+      }).join('');
+    }
+    // === END OF PART 6 ===
+    // =========================================================================
+    // TAB 3 — MARKETING CAMPAIGN BUILDER, POS PACKAGES & 1-CLICK POS PUSH
+    // =========================================================================
+    function recalcCampaignSimulator() {
+      const adSpend = Number(document.getElementById('camp-ad-spend')?.value) || 0;
+      const talentSpend = Number(document.getElementById('camp-talent-spend')?.value) || 0;
+      const expCovers = Math.max(1, Number(document.getElementById('camp-exp-covers')?.value) || 1);
+      const avgCheck = Number(document.getElementById('camp-avg-check')?.value) || 0;
+      const vipMins = Number(document.getElementById('camp-vip-mins')?.value) || 0;
+
+      const totalBudget = adSpend + talentSpend;
+      const projGross = (expCovers * avgCheck) + vipMins;
+      const grossMarginRatio = 1 - (state.guardrails.blendedCogsPct / 100);
+      const netPerCover = avgCheck * grossMarginRatio;
+
+      const breakEvenCovers = (totalBudget > 0 && netPerCover > 0)
+        ? Math.ceil(totalBudget / netPerCover)
+        : 0;
+      const estCac = expCovers > 0 ? totalBudget / expCovers : 0;
+      const projRoas = totalBudget > 0 ? projGross / totalBudget : 0;
+
+      const beEl = document.getElementById('sim-breakeven-covers');
+      const cacEl = document.getElementById('sim-est-cac');
+      const roasEl = document.getElementById('sim-proj-roas');
+      const prevEl = document.getElementById('sim-guardrail-preview');
+
+      if (beEl) beEl.textContent = String(breakEvenCovers);
+      if (cacEl) cacEl.textContent = fmtMoney(estCac);
+      if (roasEl) {
+        roasEl.textContent = projRoas.toFixed(1) + 'x';
+        roasEl.className = 'text-sm ' + (totalBudget === 0 || projRoas >= state.guardrails.minRoas ? 'text-emeraldVault' : 'text-crimson');
+      }
+
+      if (prevEl) {
+        if (totalBudget === 0) {
+          prevEl.textContent = 'Zero-cost organic drop — auto-qualifies ROAS guardrail.';
+          prevEl.className = 'text-[11px] font-mono text-emeraldVault';
+        } else if (projRoas >= state.guardrails.minRoas) {
+          prevEl.textContent = 'WITHIN GUARDRAIL (>=' + state.guardrails.minRoas.toFixed(1) + 'x Min ROAS)';
+          prevEl.className = 'text-[11px] font-mono text-emeraldVault font-bold';
+        } else {
+          prevEl.textContent = 'OUTSIDE GUARDRAIL (<' + state.guardrails.minRoas.toFixed(1) + 'x Min ROAS)';
+          prevEl.className = 'text-[11px] font-mono text-crimson font-bold';
+        }
+      }
+    }
+
+    function recalcPackageMargin() {
+      const cogs = Number(document.getElementById('pkg-cogs')?.value) || 0;
+      const price = Math.max(0.01, Number(document.getElementById('pkg-price')?.value) || 0.01);
+      const screen = document.getElementById('pkg-pos-screen')?.value || 'VIP_SCREEN';
+
+      const cogsPct = (cogs / price) * 100;
+      const margin = price - cogs;
+
+      const pctEl = document.getElementById('pkg-sim-cogs-pct');
+      const mEl = document.getElementById('pkg-sim-margin');
+      const rEl = document.getElementById('pkg-sim-route');
+
+      if (pctEl) {
+        pctEl.textContent = fmtPct(cogsPct);
+        pctEl.className = 'text-sm ' + (cogsPct <= state.guardrails.blendedCogsPct ? 'text-emeraldVault' : 'text-sovereign');
+      }
+      if (mEl) mEl.textContent = fmtMoney(margin);
+      if (rEl) rEl.textContent = screen;
+    }
+
+    async function handleSubmitMarketingCampaign(e) {
+      e.preventDefault();
+      const name = document.getElementById('camp-name').value.trim();
+      if (!name) return;
+
+      const adSpend = Number(document.getElementById('camp-ad-spend').value) || 0;
+      const talentSpend = Number(document.getElementById('camp-talent-spend').value) || 0;
+      const expCovers = Number(document.getElementById('camp-exp-covers').value) || 0;
+      const avgCheck = Number(document.getElementById('camp-avg-check').value) || 0;
+      const vipMins = Number(document.getElementById('camp-vip-mins').value) || 0;
+      const projGross = (expCovers * avgCheck) + vipMins;
+
+      const payload = {
+        campaign_name: name,
+        campaign_type: 'MARKETING_CAMPAIGN',
+        channel: document.getElementById('camp-channel').value,
+        ad_spend: adSpend,
+        talent_spend: talentSpend,
+        expected_covers: expCovers,
+        projected_revenue: projGross,
+        utm_code: document.getElementById('camp-utm-code').value.trim().toUpperCase(),
+        attributed_revenue: 0,
+        redemptions_count: 0,
+        approval_status: state.role === 'OWNER' ? 'APPROVED' : 'PENDING',
+        created_by_role: state.role || 'PIN_MKT',
+        event_date: todayIsoStr()
+      };
+
+      const res = await safeInsertRecord('feeder_campaigns', payload, ['created_by_role']);
+      state.feederCampaigns.unshift(res.data);
+
+      e.target.reset();
+      document.getElementById('camp-exp-covers').value = '40';
+      document.getElementById('camp-avg-check').value = '75';
+      recalcCampaignSimulator();
+      renderAllTabs();
+
+      showToast(
+        state.role === 'OWNER'
+          ? 'Campaign approved & activated in ledger!'
+          : 'Campaign submitted to Owner C-Suite Approval Gate!',
+        'success'
+      );
+    }
+
+    async function handleSubmitPosPackage(e) {
+      e.preventDefault();
+      const pkgName = document.getElementById('pkg-name').value.trim();
+      if (!pkgName) return;
+
+      const cogs = Number(document.getElementById('pkg-cogs').value) || 0;
+      const price = Number(document.getElementById('pkg-price').value) || 0;
+      const screen = document.getElementById('pkg-pos-screen').value;
+
+      const payload = {
+        campaign_name: pkgName,
+        campaign_type: 'POS_PACKAGE',
+        package_category: document.getElementById('pkg-category').value,
+        channel: document.getElementById('pkg-channel').value,
+        package_cogs: cogs,
+        package_price: price,
+        pos_screen_target: screen,
+        notes: document.getElementById('pkg-notes').value.trim(),
+        ad_spend: 0,
+        talent_spend: 0,
+        projected_revenue: price * 10,
+        attributed_revenue: 0,
+        redemptions_count: 0,
+        approval_status: 'PENDING',
+        created_by_role: state.role || 'PIN_MKT',
+        event_date: todayIsoStr()
+      };
+
+      const res = await safeInsertRecord('feeder_campaigns', payload, ['created_by_role']);
+      state.feederCampaigns.unshift(res.data);
+
+      e.target.reset();
+      document.getElementById('pkg-price').value = '350';
+      recalcPackageMargin();
+      renderAllTabs();
+      showToast('Staged "' + pkgName + '" in C-Suite POS Push Queue!', 'success');
+    }
+
+    async function approveCampaignOrPushToPos(campId, pushToLivePos = false) {
+      if (state.role !== 'OWNER') {
+        showToast('Sovereign Owner PIN required for C-Suite approval & live POS push.', 'warn');
+        return;
+      }
+
+      const camp = state.feederCampaigns.find(c => String(c.id) === String(campId));
+      if (!camp) return;
+
+      let nextStatus = 'APPROVED';
+      if (pushToLivePos && camp.campaign_type === 'POS_PACKAGE') {
+        // 1-Click Live Push to rehg-pos-core.menu_items
+        const menuPayload = {
+          name: camp.campaign_name,
+          category: camp.pos_screen_target === 'VIP_SCREEN' ? 'VIP Bottle & Rituals' : 'Promos & Packages',
+          price: Number(camp.package_price) || 0,
+          cost: Number(camp.package_cogs) || 0,
+          pos_screen: camp.pos_screen_target || 'VIP_SCREEN',
+          is_active: true,
+          feeder_campaign_id: String(camp.id)
+        };
+        await safeInsertRecord('menu_items', menuPayload, ['pos_screen', 'feeder_campaign_id', 'cost', 'is_active', 'venue_id']);
+        nextStatus = 'LIVE_POS';
+      }
+
+      await safeUpdateRecord('feeder_campaigns', campId, { approval_status: nextStatus });
+      camp.approval_status = nextStatus;
+      renderAllTabs();
+
+      showToast(
+        nextStatus === 'LIVE_POS'
+          ? 'Pushed "' + camp.campaign_name + '" live to rehg-pos-core.menu_items (' + (camp.pos_screen_target || 'VIP_SCREEN') + ')!'
+          : 'C-Suite Approved "' + camp.campaign_name + '"!',
+        'success'
+      );
+    }
+
+    async function rejectCampaignItem(campId) {
+      if (state.role !== 'OWNER') return;
+      await safeUpdateRecord('feeder_campaigns', campId, { approval_status: 'REJECTED' });
+      const camp = state.feederCampaigns.find(c => String(c.id) === String(campId));
+      if (camp) camp.approval_status = 'REJECTED';
+      renderAllTabs();
+      showToast('Rejected submission.', 'info');
+    }
+
+    async function logManualRedemptionOnCampaign(campId) {
+      const camp = state.feederCampaigns.find(c => String(c.id) === String(campId));
+      if (!camp) return;
+      const curRev = Number(camp.attributed_revenue || 0);
+      const raw = window.prompt('Update verified POS redemption revenue ($) for "' + camp.campaign_name + '":', String(curRev));
+      if (raw === null) return;
+      const nextRev = Math.max(0, Number(raw) || 0);
+      const unitPrice = Number(camp.package_price) || 75;
+      const estCount = Math.max(1, Math.round(nextRev / unitPrice));
+      await safeUpdateRecord('feeder_campaigns', campId, {
+        attributed_revenue: nextRev,
+        redemptions_count: nextRev > 0 ? estCount : 0
+      });
+      camp.attributed_revenue = nextRev;
+      camp.redemptions_count = nextRev > 0 ? estCount : 0;
+      renderAllTabs();
+      showToast('Updated campaign redemption revenue to ' + fmtMoney(nextRev), 'success');
+    }
+
+    function evaluateCampaignGuardrailBadge(camp) {
+      const budget = Number(camp.ad_spend || 0) + Number(camp.talent_spend || 0);
+      const projOrLiveRev = Math.max(Number(camp.attributed_revenue || 0), Number(camp.projected_revenue || 0));
+      const roas = budget > 0 ? projOrLiveRev / budget : 99;
+      const pkgPrice = Number(camp.package_price || 0);
+      const pkgCogs = Number(camp.package_cogs || 0);
+      const pkgCogsPct = pkgPrice > 0 ? (pkgCogs / pkgPrice) * 100 : 0;
+
+      if (camp.campaign_type === 'POS_PACKAGE') {
+        if (pkgCogsPct <= state.guardrails.blendedCogsPct + 6) {
+          return {
+            ok: true,
+            label: 'C-SUITE APPROVED — WITHIN ROI / CAC',
+            cls: 'bg-emeraldVault/15 text-emeraldVault border border-emeraldVault/40'
+          };
+        }
+        return {
+          ok: false,
+          label: 'C-SUITE FLAGGED — OUTSIDE GUARDRAIL',
+          cls: 'bg-crimson/20 text-crimson border border-crimson/40'
+        };
+      }
+
+      if (budget === 0 || roas >= state.guardrails.minRoas) {
+        return {
+          ok: true,
+          label: 'C-SUITE APPROVED — WITHIN ROI / CAC',
+          cls: 'bg-emeraldVault/15 text-emeraldVault border border-emeraldVault/40'
+        };
+      }
+      return {
+        ok: false,
+        label: 'C-SUITE FLAGGED — OUTSIDE GUARDRAIL',
+        cls: 'bg-crimson/20 text-crimson border border-crimson/40'
+      };
+    }
+
+    function renderTab3Campaigns() {
+      const isOwner = state.role === 'OWNER';
+      const pendingItems = state.feederCampaigns.filter(c => String(c.approval_status || 'PENDING').toUpperCase() === 'PENDING');
+      const countEl = document.getElementById('csuite-queue-count');
+      if (countEl) countEl.textContent = pendingItems.length + ' Pending';
+
+      const qList = document.getElementById('csuite-campaign-approval-list');
+      if (!pendingItems.length) {
+        qList.innerHTML =
+          '<div class="carbon-subcard rounded-xl p-5 text-center text-xs text-slate-400">' +
+            'Zero pending campaigns or POS packages awaiting C-Suite sign-off.' +
+          '</div>';
+      } else {
+        qList.innerHTML = pendingItems.map(c => {
+          const isPkg = c.campaign_type === 'POS_PACKAGE';
+          const budget = Number(c.ad_spend || 0) + Number(c.talent_spend || 0);
+          const verdict = evaluateCampaignGuardrailBadge(c);
+
+          return (
+            '<div class="carbon-subcard rounded-xl p-3.5 space-y-2">' +
+              '<div class="flex items-start justify-between gap-2">' +
+                '<div>' +
+                  '<strong class="text-xs font-bold text-white">' + esc(c.campaign_name) + '</strong>' +
+                  '<div class="text-[10px] font-mono text-slate-400">' +
+                    (isPkg
+                      ? 'POS Package • Price ' + esc(fmtMoney(c.package_price)) + (isOwner ? ' (COGS ' + esc(fmtMoney(c.package_cogs)) + ')' : '') + ' -> ' + esc(c.pos_screen_target || 'VIP_SCREEN')
+                      : 'Campaign • Budget ' + esc(fmtMoney(budget)) + ' • Proj ' + esc(fmtMoney(c.projected_revenue || 0))) +
+                  '</div>' +
+                '</div>' +
+                (isOwner
+                  ? '<span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold ' + verdict.cls + '">' + esc(verdict.label) + '</span>'
+                  : '<span class="px-1.5 py-0.5 rounded bg-sovereign/15 text-sovereign text-[9px] font-mono font-bold">AWAITING OWNER</span>') +
+              '</div>' +
+              (isOwner
+                ? '<div class="flex flex-wrap gap-1.5 pt-1">' +
+                    (isPkg
+                      ? '<button type="button" onclick="approveCampaignOrPushToPos(\'' + esc(c.id) + '\', true)" class="px-2.5 py-1 rounded bg-feederCyan hover:bg-sky-300 text-obsidian text-[10px] font-extrabold transition">⚡ 1-Click Push to Live POS</button>'
+                      : '<button type="button" onclick="approveCampaignOrPushToPos(\'' + esc(c.id) + '\', false)" class="px-2.5 py-1 rounded bg-emeraldVault hover:bg-emerald-400 text-obsidian text-[10px] font-extrabold transition">✓ Approve Budget</button>') +
+                    '<button type="button" onclick="rejectCampaignItem(\'' + esc(c.id) + '\')" class="px-2.5 py-1 rounded bg-crimson/20 hover:bg-crimson text-red-200 hover:text-white text-[10px] font-bold transition">Reject</button>' +
+                  '</div>'
+                : '') +
+            '</div>'
+          );
+        }).join('');
+      }
+
+      // Render Active Campaigns & Live POS Redemption ROAS Ledger
+      const activeItems = state.feederCampaigns.filter(c => {
+        const st = String(c.approval_status || 'PENDING').toUpperCase();
+        return st !== 'REJECTED';
+      });
+
+      const tbody = document.getElementById('active-campaigns-tbody');
+      if (!activeItems.length) {
+        tbody.innerHTML =
+          '<tr><td colspan="6" class="py-6 text-center text-slate-400 font-sans">Zero active campaigns or POS packages for <strong class="font-mono text-feederCyan">' + esc(state.venueId) + '</strong>.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = activeItems.map(c => {
+        const budget = Number(c.ad_spend || 0) + Number(c.talent_spend || 0);
+        const liveRev = Number(c.attributed_revenue || 0);
+        const roas = budget > 0 ? liveRev / budget : 0;
+        const st = String(c.approval_status || 'PENDING').toUpperCase();
+
+        let statusHtml = '<span class="px-2 py-0.5 rounded bg-sovereign/15 text-sovereign text-[10px] font-bold">PENDING GATE</span>';
+        if (st === 'LIVE_POS') statusHtml = '<span class="px-2 py-0.5 rounded bg-feederCyan/20 text-feederCyan text-[10px] font-bold">LIVE ON POS</span>';
+        else if (st === 'APPROVED') statusHtml = '<span class="px-2 py-0.5 rounded bg-emeraldVault/20 text-emeraldVault text-[10px] font-bold">APPROVED</span>';
+
+        return (
+          '<tr class="hover:bg-slate-900/50">' +
+            '<td class="py-2.5 px-2.5 font-sans font-semibold text-white">' +
+              esc(c.campaign_name) +
+              (c.utm_code ? ' <span class="text-[10px] font-mono text-feederCyan">[' + esc(c.utm_code) + ']</span>' : '') +
+            '</td>' +
+            '<td class="py-2.5 px-2.5 text-slate-300">' + esc(c.pos_screen_target || c.channel || 'PAID_DIGITAL_UTM') + '</td>' +
+            '<td class="py-2.5 px-2.5 text-right text-slate-300">' + esc(fmtMoney(budget)) + '</td>' +
+            '<td class="py-2.5 px-2.5 text-right text-white font-semibold">' +
+              '<button type="button" onclick="logManualRedemptionOnCampaign(\'' + esc(c.id) + '\')" class="hover:text-feederCyan underline decoration-dotted">' +
+                esc(fmtMoney(liveRev)) +
+              '</button>' +
+            '</td>' +
+            '<td class="py-2.5 px-2.5 text-right ' + (roas >= state.guardrails.minRoas ? 'text-emeraldVault font-bold' : 'text-slate-300') + '">' +
+              (budget > 0 ? esc(roas.toFixed(1) + 'x') : '—') +
+            '</td>' +
+            '<td class="py-2.5 px-2.5 text-right">' + statusHtml + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+    }
+    // === END OF PART 7 ===
+    // =========================================================================
+    // TAB 4 — HOST, CONCIERGE & PROMOTER SETTLEMENT + PHANTOM HEADCOUNT SLEEPER
+    // =========================================================================
+    function computePromoterPayoutMath(model, rateVal, verifiedBands, posSpend, doorRev) {
+      const r = Math.max(0, Number(rateVal) || 0);
+      const bands = Math.max(0, Number(verifiedBands) || 0);
+      const gross = Math.max(0, Number(posSpend) || 0) + Math.max(0, Number(doorRev) || 0);
+      let payout = 0;
+
+      if (model === 'PCT_VERIFIED_SPEND') {
+        payout = (Number(posSpend) || 0) * (r / 100);
+      } else if (model === 'PER_VERIFIED_COVER') {
+        payout = bands * r;
+      } else {
+        payout = r;
+      }
+      const effPct = gross > 0 ? (payout / gross) * 100 : (payout > 0 ? 100 : 0);
+      return { gross, payout, effPct };
+    }
+
+    function recalcPromoterSettlementPreview() {
+      const model = document.getElementById('prom-payout-model')?.value || 'PCT_VERIFIED_SPEND';
+      const rateVal = Number(document.getElementById('prom-rate-val')?.value) || 0;
+      const verifiedBands = Number(document.getElementById('prom-verified-bands')?.value) || 0;
+      const posSpend = Number(document.getElementById('prom-pos-spend')?.value) || 0;
+      const doorRev = Number(document.getElementById('prom-door-rev')?.value) || 0;
+
+      const lbl = document.getElementById('lbl-prom-rate');
+      if (lbl) {
+        if (model === 'PCT_VERIFIED_SPEND') lbl.textContent = 'Commission Rate (%) *';
+        else if (model === 'PER_VERIFIED_COVER') lbl.textContent = '$ Per Verified Wristband *';
+        else lbl.textContent = 'Flat Shift Fee ($) *';
+      }
+
+      const calc = computePromoterPayoutMath(model, rateVal, verifiedBands, posSpend, doorRev);
+      document.getElementById('prom-sim-gross').textContent = fmtMoney(calc.gross);
+      document.getElementById('prom-sim-payout').textContent = fmtMoney(calc.payout);
+
+      const effEl = document.getElementById('prom-sim-eff-pct');
+      if (effEl) {
+        effEl.textContent = fmtPct(calc.effPct);
+        effEl.className = 'text-sm ' + (calc.effPct <= state.guardrails.maxCommPct ? 'text-emeraldVault' : 'text-crimson');
+      }
+    }
+
+    function evaluatePromoterFraudAndGuardrail(p) {
+      const claimed = Number(p.claimed_guests || 0);
+      const verified = Number(p.verified_bands || 0);
+      const gross = Number(p.pos_table_spend || 0) + Number(p.door_cover_rev || 0);
+      const payout = Number(p.calculated_payout || 0);
+      const effPct = gross > 0 ? (payout / gross) * 100 : (payout > 0 ? 100 : 0);
+      const phantomGap = Math.max(0, claimed - verified);
+
+      const overCommGuardrail = effPct > state.guardrails.maxCommPct + 0.05;
+      const hasPhantomHeadcount = phantomGap > 0 && (phantomGap >= 3 || (claimed > 0 && phantomGap / claimed > 0.12));
+
+      if (overCommGuardrail || hasPhantomHeadcount) {
+        return {
+          ok: false,
+          phantomGap,
+          effPct,
+          badgeText: 'FLAGGED — PHANTOM HEADCOUNT / OVER GUARDRAIL',
+          badgeCls: 'bg-crimson/20 text-crimson border border-crimson/50'
+        };
+      }
+      return {
+        ok: true,
+        phantomGap,
+        effPct,
+        badgeText: 'VERIFIED ROI — WITHIN ' + state.guardrails.maxCommPct.toFixed(0) + '% GUARDRAIL',
+        badgeCls: 'bg-emeraldVault/15 text-emeraldVault border border-emeraldVault/40'
+      };
+    }
+
+    async function handleCreatePromoterSettlement(e) {
+      e.preventDefault();
+      const partnerName = document.getElementById('prom-name').value.trim();
+      if (!partnerName) return;
+
+      const model = document.getElementById('prom-payout-model').value;
+      const rateVal = Number(document.getElementById('prom-rate-val').value) || 0;
+      const claimed = Number(document.getElementById('prom-claimed-guests').value) || 0;
+      const verified = Number(document.getElementById('prom-verified-bands').value) || 0;
+      const posSpend = Number(document.getElementById('prom-pos-spend').value) || 0;
+      const doorRev = Number(document.getElementById('prom-door-rev').value) || 0;
+      const calc = computePromoterPayoutMath(model, rateVal, verified, posSpend, doorRev);
+
+      const payload = {
+        partner_name: partnerName,
+        partner_role: document.getElementById('prom-role').value,
+        shift_date: document.getElementById('prom-date').value || todayIsoStr(),
+        payout_model: model,
+        rate_value: rateVal,
+        claimed_guests: claimed,
+        verified_bands: verified,
+        pos_table_spend: posSpend,
+        door_cover_rev: doorRev,
+        calculated_payout: Number(calc.payout.toFixed(2)),
+        settlement_status: 'PENDING',
+        notes: document.getElementById('prom-notes').value.trim()
+      };
+
+      const res = await safeInsertRecord('promoter_ledgers', payload);
+      state.promoterLedgers.unshift(res.data);
+
+      // Silent Phantom-Headcount Dovetail into Carbon Loss if discrepancy exists
+      const audit = evaluatePromoterFraudAndGuardrail(payload);
+      if (!audit.ok) {
+        const estLeakage = audit.phantomGap > 0
+          ? audit.phantomGap * (model === 'PER_VERIFIED_COVER' ? rateVal : 15)
+          : Math.max(0, calc.payout - (calc.gross * (state.guardrails.maxCommPct / 100)));
+        await silentLogShrinkageAuditVariance(
+          'Promoter Settlement Alert: ' + partnerName,
+          estLeakage,
+          'Claimed ' + claimed + ' vs Verified Bands ' + verified + ' | Eff Comm ' + calc.effPct.toFixed(1) + '%'
+        );
+      }
+
+      e.target.reset();
+      document.getElementById('prom-date').value = todayIsoStr();
+      document.getElementById('prom-rate-val').value = '10';
+      recalcPromoterSettlementPreview();
+      renderAllTabs();
+      showToast('Queued settlement for ' + partnerName, 'success');
+    }
+
+    async function decidePromoterSettlement(ledgerId, decision) {
+      if (state.role !== 'OWNER') return;
+      const rec = state.promoterLedgers.find(p => String(p.id) === String(ledgerId));
+      if (!rec) return;
+
+      await safeUpdateRecord('promoter_ledgers', ledgerId, { settlement_status: decision });
+      rec.settlement_status = decision;
+
+      if (decision === 'REJECTED') {
+        await silentLogShrinkageAuditVariance(
+          'Rejected Promoter Claim: ' + rec.partner_name,
+          rec.calculated_payout || 0,
+          'Rejected at C-Suite Gate — Claimed ' + rec.claimed_guests + ' vs Verified ' + rec.verified_bands
+        );
+      }
+      renderAllTabs();
+      showToast('Settlement ' + decision + ' for ' + rec.partner_name, decision === 'APPROVED' ? 'success' : 'warn');
+    }
+
+    function renderTab4Promoters() {
+      const isOwner = state.role === 'OWNER';
+      const pending = state.promoterLedgers.filter(p => String(p.settlement_status || 'PENDING').toUpperCase() === 'PENDING');
+      const countBadge = document.getElementById('prom-pending-count');
+      if (countBadge) countBadge.textContent = pending.length + ' Pending';
+
+      // Owner Right Card: C-Suite Fraud & Payout Gate
+      const ownerGateEl = document.getElementById('owner-promoter-gate-list');
+      if (ownerGateEl) {
+        if (!pending.length) {
+          ownerGateEl.innerHTML =
+            '<div class="carbon-subcard rounded-xl p-6 text-center text-xs text-slate-400">' +
+              'Zero pending partner settlements in queue for <strong class="font-mono text-feederCyan">' + esc(state.venueId) + '</strong>.' +
+            '</div>';
+        } else {
+          ownerGateEl.innerHTML = pending.map(p => {
+            const audit = evaluatePromoterFraudAndGuardrail(p);
+            const gross = Number(p.pos_table_spend || 0) + Number(p.door_cover_rev || 0);
+            return (
+              '<div class="carbon-subcard rounded-xl p-3.5 space-y-2">' +
+                '<div class="flex flex-wrap items-start justify-between gap-2">' +
+                  '<div>' +
+                    '<strong class="text-xs font-bold text-white">' + esc(p.partner_name) + '</strong>' +
+                    ' <span class="text-[10px] font-mono text-slate-400">(' + esc(p.partner_role || 'Promoter') + ' • ' + esc(p.shift_date || todayIsoStr()) + ')</span>' +
+                    '<div class="text-[11px] font-mono text-slate-300 mt-0.5">' +
+                      'Claimed: <strong>' + esc(p.claimed_guests || 0) + '</strong> | Verified Bands: <strong class="text-feederCyan">' + esc(p.verified_bands || 0) + '</strong>' +
+                      (audit.phantomGap > 0 ? ' <span class="text-crimson font-bold">(-' + esc(audit.phantomGap) + ' Phantom)</span>' : '') +
+                    '</div>' +
+                  '</div>' +
+                  '<span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold ' + audit.badgeCls + '">' +
+                    (audit.ok ? '🟢 ' : '🔴 ') + esc(audit.badgeText) +
+                  '</span>' +
+                '</div>' +
+                '<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/80 font-mono text-[11px]">' +
+                  '<span class="text-slate-300">Gross: <strong class="text-white">' + esc(fmtMoney(gross)) + '</strong> | Payout: <strong class="text-feederCyan">' + esc(fmtMoney(p.calculated_payout || 0)) + '</strong> (' + esc(fmtPct(audit.effPct)) + ')</span>' +
+                  '<div class="flex gap-1.5">' +
+                    '<button type="button" onclick="decidePromoterSettlement(\'' + esc(p.id) + '\', \'APPROVED\')" class="px-2.5 py-1 rounded bg-emeraldVault hover:bg-emerald-400 text-obsidian text-[10px] font-extrabold transition">Approve Payout</button>' +
+                    '<button type="button" onclick="decidePromoterSettlement(\'' + esc(p.id) + '\', \'REJECTED\')" class="px-2.5 py-1 rounded bg-crimson/20 hover:bg-crimson text-red-200 hover:text-white text-[10px] font-bold transition">Flag & Hold</button>' +
+                  '</div>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('');
+        }
+      }
+
+      // PIN-MKT Right Card: Clean Submission Status Tracker (ZERO Phantom Fraud Flags / ZERO Owner Net Margins)
+      const mktListEl = document.getElementById('mkt-promoter-status-list');
+      if (mktListEl) {
+        if (!state.promoterLedgers.length) {
+          mktListEl.innerHTML =
+            '<div class="carbon-subcard rounded-xl p-6 text-center text-xs text-slate-400">Zero partner check-ins logged for active scope.</div>';
+        } else {
+          mktListEl.innerHTML = state.promoterLedgers.slice(0, 20).map(p => {
+            const st = String(p.settlement_status || 'PENDING').toUpperCase();
+            let badgeCls = 'bg-sovereign/15 text-sovereign';
+            if (st === 'APPROVED') badgeCls = 'bg-emeraldVault/20 text-emeraldVault';
+            if (st === 'REJECTED') badgeCls = 'bg-slate-800 text-slate-400';
+            return (
+              '<div class="carbon-subcard rounded-xl p-3 flex items-center justify-between gap-2 font-mono text-xs">' +
+                '<div>' +
+                  '<strong class="font-sans text-white">' + esc(p.partner_name) + '</strong>' +
+                  '<div class="text-[10px] text-slate-400">' + esc(p.shift_date || todayIsoStr()) + ' • Verified Bands: ' + esc(p.verified_bands || 0) + '</div>' +
+                '</div>' +
+                '<span class="px-2 py-0.5 rounded text-[10px] font-bold ' + badgeCls + '">' + esc(st === 'REJECTED' ? 'UNDER REVIEW' : st) + '</span>' +
+              '</div>'
+            );
+          }).join('');
+        }
+      }
+
+      // Row 2 Leaderboard (Role-Isolated Columns 7 & 8)
+      const titleEl = document.getElementById('partner-leaderboard-title');
+      const col7 = document.getElementById('th-partner-col7');
+      const col8 = document.getElementById('th-partner-col8');
+      if (titleEl) {
+        titleEl.textContent = isOwner
+          ? 'Active Host, Concierge & Partner Net-Margin Leaderboard'
+          : 'Active Host, Concierge & Partner Check-In Leaderboard';
+      }
+      if (col7) col7.textContent = isOwner ? 'Comm % / Headcount Audit' : 'Payout Model';
+      if (col8) col8.textContent = isOwner ? 'Net Venue Contribution' : 'Settlement Status';
+
+      let totBands = 0;
+      let totGross = 0;
+      const validLedgers = state.promoterLedgers.filter(p => isRecordWithinHorizon(p, ['shift_date', 'created_at']));
+      validLedgers.forEach(p => {
+        if (String(p.settlement_status || '').toUpperCase() === 'REJECTED') return;
+        totBands += Number(p.verified_bands || 0);
+        totGross += Number(p.pos_table_spend || 0) + Number(p.door_cover_rev || 0);
+      });
+
+      const pill = document.getElementById('partner-totals-pill');
+      if (pill) pill.textContent = 'Verified Bands: ' + totBands + ' | Attributed Gross: ' + fmtMoney(totGross);
+
+      const tbody = document.getElementById('promoter-leaderboard-tbody');
+      if (!validLedgers.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-slate-400 font-sans">Zero partner check-ins in selected date horizon.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = validLedgers.map(p => {
+        const gross = Number(p.pos_table_spend || 0) + Number(p.door_cover_rev || 0);
+        const payout = Number(p.calculated_payout || 0);
+        const audit = evaluatePromoterFraudAndGuardrail(p);
+        const netVenue = gross - (gross * (state.guardrails.blendedCogsPct / 100)) - payout;
+        const st = String(p.settlement_status || 'PENDING').toUpperCase();
+
+        return (
+          '<tr class="hover:bg-slate-900/50">' +
+            '<td class="py-2.5 px-3 font-sans font-semibold text-white">' + esc(p.partner_name) + '</td>' +
+            '<td class="py-2.5 px-3 text-slate-300">' + esc(p.partner_role || 'Promoter') + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-300">' + esc(p.claimed_guests || 0) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-feederCyan font-bold">' + esc(p.verified_bands || 0) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-white font-semibold">' + esc(fmtMoney(gross)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right text-slate-200">' + esc(fmtMoney(payout)) + '</td>' +
+            '<td class="py-2.5 px-3 text-right">' +
+              (isOwner
+                ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold ' + audit.badgeCls + '">' + esc(fmtPct(audit.effPct)) + (audit.phantomGap > 0 ? ' • -' + esc(audit.phantomGap) + ' PHANTOM' : '') + '</span>'
+                : '<span class="text-slate-400">' + esc(p.payout_model || 'PCT_VERIFIED_SPEND') + '</span>') +
+            '</td>' +
+            '<td class="py-2.5 px-3 text-right">' +
+              (isOwner
+                ? '<strong class="' + (netVenue >= 0 ? 'text-emeraldVault' : 'text-crimson') + '">' + esc(fmtMoney(netVenue)) + '</strong>'
+                : '<span class="text-slate-300">' + esc(st === 'REJECTED' ? 'UNDER REVIEW' : st) + '</span>') +
+            '</td>' +
+          '</tr>'
+        );
+      }).join('');
+    }
+    // === END OF PART 8 ===
+    // =========================================================================
+    // TAB 5 — BLACK-BOOK VIP VAULT, 60-SEC CSV BRIDGE & GAS PROVISIONER
+    // =========================================================================
+    async function handleQuickAddVipContact(e) {
+      e.preventDefault();
+      const name = document.getElementById('crm-name').value.trim();
+      if (!name) return;
+
+      await upsertGuestIntoBlackBook({
+        guest_name: name,
+        phone: document.getElementById('crm-phone').value.trim(),
+        email: '',
+        preferred_section: document.getElementById('crm-pref').value.trim(),
+        notes: document.getElementById('crm-pref').value.trim(),
+        visit_count: 1,
+        lifetime_spend: Number(document.getElementById('crm-ltv').value) || 0
+      });
+
+      e.target.reset();
+      renderTab5Vault();
+      showToast('Saved VIP guest "' + name + '" to Black Book Vault!', 'success');
+    }
+
+    function exportVipSegmentCsv() {
+      if (!state.guestCrmContacts.length) {
+        showToast('Zero VIP contacts in vault to export.', 'warn');
+        return;
+      }
+      const header = ['venue_id', 'guest_name', 'phone', 'email', 'preferred_section', 'visit_count', 'lifetime_spend', 'notes'];
+      const lines = [header.join(',')];
+      state.guestCrmContacts.forEach(c => {
+        const row = [
+          state.venueId,
+          c.guest_name || '',
+          c.phone || '',
+          c.email || '',
+          c.preferred_section || '',
+          Number(c.visit_count || 1),
+          Number(c.lifetime_spend || 0).toFixed(2),
+          c.notes || ''
+        ].map(v => '"' + String(v).replace(/"/g, '""') + '"');
+        lines.push(row.join(','));
+      });
+      triggerCsvDownload('CARBON_FEEDER_VIP_SEGMENT_' + state.venueId + '_' + todayIsoStr() + '.csv', lines.join('\n'));
+      showToast('Exported ' + state.guestCrmContacts.length + ' VIP Black Book contacts!', 'success');
+    }
+
+    function triggerCsvDownload(filename, contentStr) {
+      const blob = new Blob([contentStr], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadGuestlistCsvSpec() {
+      const spec = [
+        'name,phone,email,visits,total_spend,party_size,section_tier,min_spend,reservation_date,notes',
+        '"Guest Full Name","+10000000000","guest@domain.com",3,1850.00,6,"Main Floor VIP Booth",1000.00,' + todayIsoStr() + ',"Preferred spirit & milestone notes"'
+      ].join('\n');
+      triggerCsvDownload('CARBON_FEEDER_GUESTLIST_SPEC.csv', spec);
+    }
+
+    function downloadPosPromoCsvSpec() {
+      const spec = [
+        'order_date,promo_code,source_channel,table_code,guest_name,covers,gross_sales,comp_amount',
+        todayIsoStr() + ',VIP_FLASH_01,SMS_VIP_VAULT,V-101,"Guest Name",4,640.00,0.00'
+      ].join('\n');
+      triggerCsvDownload('CARBON_FEEDER_POS_PROMO_SPEC.csv', spec);
+    }
+
+    function parseSimpleCsvText(text) {
+      const lines = String(text || '')
+        .replace(/\r\n/g, '\n')
+        .replace(/\r/g, '\n')
+        .split('\n')
+        .map(l => l.trim())
+        .filter(Boolean);
+      if (lines.length < 2) return [];
+
+      const splitCsvLine = line => {
+        const out = [];
+        let cur = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            if (inQuotes && line[i + 1] === '"') {
+              cur += '"';
+              i++;
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (ch === ',' && !inQuotes) {
+            out.push(cur.trim());
+            cur = '';
+          } else {
+            cur += ch;
+          }
+        }
+        out.push(cur.trim());
+        return out;
+      };
+
+      const headers = splitCsvLine(lines[0]).map(h => h.toLowerCase().replace(/[^a-z0-9_]/g, '_'));
+      const records = [];
+      for (let r = 1; r < lines.length; r++) {
+        const vals = splitCsvLine(lines[r]);
+        const obj = {};
+        headers.forEach((h, idx) => {
+          obj[h] = vals[idx] !== undefined ? vals[idx] : '';
+        });
+        records.push(obj);
+      }
+      return records;
+    }
+
+    // 60-Second Importer A: OpenTable / Resy / SevenRooms / Eventbrite Guestlist CSV
+    async function handleGuestlistCsvUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      event.target.value = '';
+
+      const rows = parseSimpleCsvText(text);
+      if (!rows.length) {
+        showToast('CSV contained zero valid guest rows.', 'warn');
+        return;
+      }
+
+      let crmCount = 0;
+      let resCount = 0;
+
+      for (const r of rows) {
+        const guestName = (r.name || r.guest_name || r.full_name || r.first_name || '').trim();
+        if (!guestName) continue;
+        const phone = (r.phone || r.mobile || r.phone_number || '').trim();
+        const email = (r.email || r.guest_email || '').trim();
+        const visits = Math.max(1, Number(r.visits || r.visit_count || 1) || 1);
+        const spend = Math.max(0, Number(String(r.total_spend || r.lifetime_spend || r.spend || '0').replace(/[^0-9.-]/g, '')) || 0);
+        const notes = (r.notes || r.tags || r.preferences || '').trim();
+        const sectionTier = (r.section_tier || r.section || 'Main Dining').trim();
+        const minSpend = Math.max(0, Number(String(r.min_spend || r.table_minimum || '0').replace(/[^0-9.-]/g, '')) || 0);
+        const partySize = Math.max(1, Number(r.party_size || r.covers || r.guests || 0) || 0);
+
+        await upsertGuestIntoBlackBook({
+          guest_name: guestName,
+          phone,
+          email,
+          preferred_section: sectionTier,
+          notes,
+          visit_count: visits,
+          lifetime_spend: spend
+        });
+        crmCount++;
+
+        if (partySize > 0 || minSpend > 0 || r.reservation_date) {
+          const insertedRes = await safeInsertRecord('vip_reservations', {
+            guest_name: guestName,
+            guest_phone: phone,
+            guest_email: email,
+            reservation_date: r.reservation_date || todayIsoStr(),
+            reservation_time: r.reservation_time || '20:00',
+            party_size: partySize || 2,
+            section_tier: sectionTier,
+            source_channel: r.source_channel || 'VIP_BOOTH_DESK',
+            min_spend: minSpend,
+            deposit_amount: 0,
+            notes,
+            status: 'CONFIRMED'
+          });
+          state.vipReservations.unshift(insertedRes.data);
+          resCount++;
+        }
+      }
+
+      const st = document.getElementById('guestlist-csv-status');
+      if (st) st.textContent = 'Imported ' + crmCount + ' VIPs (' + resCount + ' reservations)';
+      renderAllTabs();
+      showToast('Imported ' + crmCount + ' VIP profiles & ' + resCount + ' reservations!', 'success');
+    }
+
+    // 60-Second Importer B: Legacy Toast / Square Promo & Check Summary CSV
+    async function handlePosPromoCsvUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      event.target.value = '';
+
+      const rows = parseSimpleCsvText(text);
+      if (!rows.length) {
+        showToast('POS CSV contained zero data rows.', 'warn');
+        return;
+      }
+
+      const importedOrders = [];
+      const promoRollup = {};
+
+      rows.forEach(r => {
+        const gross = Math.max(0, Number(String(r.gross_sales || r.total_amount || r.total || r.net_sales || '0').replace(/[^0-9.-]/g, '')) || 0);
+        const comp = Math.max(0, Number(String(r.comp_amount || r.discount_amount || r.comps || '0').replace(/[^0-9.-]/g, '')) || 0);
+        const promoCode = String(r.promo_code || r.utm_code || r.campaign || '').trim().toUpperCase();
+        const channel = normalizeChannelCode(r.source_channel || promoCode);
+        const covers = Math.max(1, Number(r.covers || r.guests || 1) || 1);
+
+        importedOrders.push({
+          id: 'csv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          venue_id: state.venueId,
+          order_date: r.order_date || todayIsoStr(),
+          created_at: (r.order_date || todayIsoStr()) + 'T20:00:00',
+          promo_code: promoCode,
+          source_channel: channel,
+          table_code: String(r.table_code || r.table_number || '').toUpperCase(),
+          guest_name: r.guest_name || r.customer_name || '',
+          covers,
+          total_amount: gross,
+          comp_amount: comp
+        });
+
+        if (promoCode) {
+          if (!promoRollup[promoCode]) promoRollup[promoCode] = { rev: 0, count: 0, channel };
+          promoRollup[promoCode].rev += gross;
+          promoRollup[promoCode].count += 1;
+        }
+      });
+
+      state.csvBridgeOrders = importedOrders.concat(state.csvBridgeOrders);
+      writeLocalScopedCache('csv_bridge_orders', state.csvBridgeOrders);
+
+      // Reconcile matching active feeder_campaigns by UTM / promo code
+      for (const code of Object.keys(promoRollup)) {
+        const match = state.feederCampaigns.find(c => String(c.utm_code || '').toUpperCase() === code || String(c.campaign_name || '').toUpperCase() === code);
+        if (match) {
+          const nextRev = (Number(match.attributed_revenue) || 0) + promoRollup[code].rev;
+          const nextCount = (Number(match.redemptions_count) || 0) + promoRollup[code].count;
+          await safeUpdateRecord('feeder_campaigns', match.id, { attributed_revenue: nextRev, redemptions_count: nextCount });
+          match.attributed_revenue = nextRev;
+          match.redemptions_count = nextCount;
+        }
+      }
+
+      const st = document.getElementById('pos-promo-csv-status');
+      if (st) st.textContent = 'Ingested ' + importedOrders.length + ' POS checks';
+      setIngestionMode('STANDALONE_CSV');
+      renderAllTabs();
+      showToast('Ingested ' + importedOrders.length + ' POS checks into Standalone CSV Bridge!', 'success');
+    }
+
+    // =========================================================================
+    // OWNER SOVEREIGN GAS DIGITAL FOOTPRINT BRIDGE GENERATOR + GUARDRAILS
+    // =========================================================================
+    function renderGasBridgeProvisioner() {
+      const box = document.getElementById('gas-bridge-code-box');
+      if (!box) return;
+      const sbUrl = (localStorage.getItem(STORAGE_KEYS.sbUrl) || DEFAULT_SUPABASE_URL).trim();
+      const sbKey = (localStorage.getItem(STORAGE_KEYS.sbKey) || DEFAULT_SUPABASE_KEY).trim();
+
+      const scriptLines = [
+        '/**',
+        ' * CarbonFootprintBridge.gs — REHG Carbon™ Sovereign GAS Digital Footprint Spine',
+        ' * Active Multi-Tenant Scope: ' + state.venueId,
+        ' * Architecture: LockService + Bulk-Matrix Google Sheet Accounting Write FIRST -> Supabase Dual-Write',
+        ' */',
+        'function doPost(e) {',
+        '  var lock = LockService.getScriptLock();',
+        '  lock.waitLock(15000);',
+        '  try {',
+        '    var p = JSON.parse((e && e.postData && e.postData.contents) || "{}");',
+        '    var venueId = "' + state.venueId + '";',
+        '    var ss = SpreadsheetApp.getActiveSpreadsheet();',
+        '    var sh = ss.getSheetByName("VIP_WEB_ACCOUNTING_LEDGER") || ss.insertSheet("VIP_WEB_ACCOUNTING_LEDGER");',
+        '    var nowIso = new Date().toISOString();',
+        '    var matrixRow = [[',
+        '      nowIso, venueId, String(p.accounting_ref || ("GAS-" + Date.now())),',
+        '      String(p.guest_name || "VIP Guest"), String(p.guest_phone || ""), String(p.guest_email || ""),',
+        '      String(p.reservation_date || nowIso.slice(0, 10)), String(p.reservation_time || "21:00"),',
+        '      Number(p.party_size || 2), String(p.section_tier || "Main Floor VIP Booth"),',
+        '      Number(p.min_spend || 0), Number(p.deposit_amount || 0), String(p.utm_code || "WEB_DIRECT")',
+        '    ]];',
+        '    sh.getRange(sh.getLastRow() + 1, 1, 1, matrixRow[0].length).setValues(matrixRow);',
+        '',
+        '    var sbHeaders = {',
+        '      "apikey": "' + sbKey + '",',
+        '      "Authorization": "Bearer ' + sbKey + '",',
+        '      "Content-Type": "application/json",',
+        '      "Prefer": "return=minimal"',
+        '    };',
+        '    UrlFetchApp.fetch("' + sbUrl + '/rest/v1/vip_reservations", {',
+        '      method: "post",',
+        '      headers: sbHeaders,',
+        '      payload: JSON.stringify({',
+        '        venue_id: venueId,',
+        '        guest_name: matrixRow[0][3],',
+        '        guest_phone: matrixRow[0][4],',
+        '        guest_email: matrixRow[0][5],',
+        '        reservation_date: matrixRow[0][6],',
+        '        reservation_time: matrixRow[0][7],',
+        '        party_size: matrixRow[0][8],',
+        '        section_tier: matrixRow[0][9],',
+        '        min_spend: matrixRow[0][10],',
+        '        deposit_amount: matrixRow[0][11],',
+        '        accounting_ref: matrixRow[0][2],',
+        '        source_channel: "CARBON_GAS_FOOTPRINT",',
+        '        notes: String(p.notes || ("UTM: " + matrixRow[0][12])),',
+        '        status: "INQUIRY"',
+        '      }),',
+        '      muteHttpExceptions: true',
+        '    });',
+        '    return ContentService.createTextOutput(JSON.stringify({ ok: true, venue_id: venueId })).setMimeType(ContentService.MimeType.JSON);',
+        '  } finally {',
+        '    lock.releaseLock();',
+        '  }',
+        '}'
+      ];
+      box.value = scriptLines.join('\n');
+    }
+
+    function copyGasBridgeScript() {
+      const box = document.getElementById('gas-bridge-code-box');
+      if (!box) return;
+      navigator.clipboard.writeText(box.value).then(() => {
+        showToast('Copied CarbonFootprintBridge.gs for ' + state.venueId + '!', 'success');
+      });
+    }
+
+    function syncGuardrailInputsToUI() {
+      const g1 = document.getElementById('cfg-max-mktg-pct');
+      const g2 = document.getElementById('cfg-min-roas');
+      const g3 = document.getElementById('cfg-max-comm-pct');
+      const oPin = document.getElementById('cfg-owner-pin');
+      const mPin = document.getElementById('cfg-mkt-pin');
+      if (g1) g1.value = state.guardrails.maxMktgPct;
+      if (g2) g2.value = state.guardrails.minRoas;
+      if (g3) g3.value = state.guardrails.maxCommPct;
+      if (oPin) oPin.value = state.ownerPin;
+      if (mPin) mPin.value = state.mktPin;
+    }
+
+    function handleGuardrailLiveEdit() {
+      if (state.role !== 'OWNER') return;
+      const mktg = Number(document.getElementById('cfg-max-mktg-pct')?.value);
+      const roas = Number(document.getElementById('cfg-min-roas')?.value);
+      const comm = Number(document.getElementById('cfg-max-comm-pct')?.value);
+      if (mktg > 0) state.guardrails.maxMktgPct = mktg;
+      if (roas > 0) state.guardrails.minRoas = roas;
+      if (comm > 0) state.guardrails.maxCommPct = comm;
+      localStorage.setItem(STORAGE_KEYS.guardrails, JSON.stringify(state.guardrails));
+      recalcCampaignSimulator();
+      recalcPromoterSettlementPreview();
+      renderAllTabs();
+    }
+
+    function restoreRehgRecommendedGuardrails() {
+      if (state.role !== 'OWNER') return;
+      state.guardrails = { ...REHG_RECOMMENDED_GUARDRAILS };
+      localStorage.setItem(STORAGE_KEYS.guardrails, JSON.stringify(state.guardrails));
+      syncGuardrailInputsToUI();
+      recalcCampaignSimulator();
+      recalcPromoterSettlementPreview();
+      renderAllTabs();
+      showToast('Restored REHG Recommended Guardrails (4.5% Mktg / 5.0x ROAS / 10% Comm)!', 'success');
+    }
+
+    async function saveVaultAndGuardrailConfig() {
+      if (state.role !== 'OWNER') return;
+      handleGuardrailLiveEdit();
+
+      const rawOwner = String(document.getElementById('cfg-owner-pin')?.value || '').replace(/\D/g, '');
+      const rawMkt = String(document.getElementById('cfg-mkt-pin')?.value || '').replace(/\D/g, '');
+      if (rawOwner.length === 4) {
+        state.ownerPin = rawOwner;
+        localStorage.setItem(STORAGE_KEYS.ownerPin, rawOwner);
+      }
+      if (rawMkt.length === 4) {
+        state.mktPin = rawMkt;
+        localStorage.setItem(STORAGE_KEYS.mktPin, rawMkt);
+      }
+
+      const sbUrl = (document.getElementById('cfg-sb-url')?.value || DEFAULT_SUPABASE_URL).trim();
+      const sbKey = (document.getElementById('cfg-sb-key')?.value || DEFAULT_SUPABASE_KEY).trim();
+      localStorage.setItem(STORAGE_KEYS.sbUrl, sbUrl);
+      localStorage.setItem(STORAGE_KEYS.sbKey, sbKey);
+
+      initSupabaseClient();
+      await safeInsertRecord(
+        'venue_alert_settings',
+        {
+          max_mktg_pct: state.guardrails.maxMktgPct,
+          min_roas: state.guardrails.minRoas,
+          max_comm_pct: state.guardrails.maxCommPct,
+          owner_pin: state.ownerPin,
+          mkt_pin: state.mktPin
+        },
+        ['max_mktg_pct', 'min_roas', 'max_comm_pct', 'mkt_pin']
+      );
+
+      renderGasBridgeProvisioner();
+      refreshAllTelemetry(false);
+      showToast('Saved Guardrails, PINs & Vault Config for ' + state.venueId, 'success');
+    }
+
+    function renderTab5Vault() {
+      const q = (document.getElementById('crm-search-input')?.value || '').trim().toLowerCase();
+      const tier = document.getElementById('crm-tier-filter')?.value || 'ALL';
+
+      const filtered = state.guestCrmContacts.filter(c => {
+        const ltv = Number(c.lifetime_spend || 0);
+        const visits = Number(c.visit_count || 1);
+        if (tier === 'WHALE' && ltv < 1000) return false;
+        if (tier === 'REPEAT' && visits < 2) return false;
+        if (!q) return true;
+        const hay = [c.guest_name, c.phone, c.email, c.preferred_section, c.notes].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+
+      const tbody = document.getElementById('vip-crm-tbody');
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-slate-400 font-sans">Zero VIP Black Book contacts matching filter for <strong class="font-mono text-feederCyan">' + esc(state.venueId) + '</strong>.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.slice(0, 150).map(c => {
+        const ltv = Number(c.lifetime_spend || 0);
+        return (
+          '<tr class="hover:bg-slate-900/50">' +
+            '<td class="py-2 px-2 font-sans font-semibold text-white">' +
+              esc(c.guest_name) +
+              (ltv >= 1000 ? ' <span class="px-1.5 py-0.5 rounded bg-sovereign/20 text-sovereign font-mono text-[9px] font-bold">VIP WHALE</span>' : '') +
+            '</td>' +
+            '<td class="py-2 px-2 text-slate-300">' + esc(c.phone || c.email || '—') + '</td>' +
+            '<td class="py-2 px-2 text-feederCyan font-sans">' + esc(c.preferred_section || c.notes || '—') + '</td>' +
+            '<td class="py-2 px-2 text-right text-slate-300">' + esc(c.visit_count || 1) + '</td>' +
+            '<td class="py-2 px-2 text-right text-emeraldVault font-bold">' + esc(fmtMoney(ltv)) + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+    }
+
+    function renderAllTabs() {
+      renderTab1Command();
+      renderTab2Concierge();
+      renderTab3Campaigns();
+      renderTab4Promoters();
+      renderTab5Vault();
+    }
+
+    // =========================================================================
+    // BOOTSTRAP APPLICATION ON DOM READY
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      wipePinInput();
+      injectDynamicPwaManifest();
+
+      state.venueId = resolveInitialVenueScope();
+      state.knownVenues = [DEFAULT_VENUE_ID];
+      if (!state.knownVenues.includes(state.venueId)) state.knownVenues.push(state.venueId);
+
+      const savedOwnerPin = localStorage.getItem(STORAGE_KEYS.ownerPin);
+      const savedMktPin = localStorage.getItem(STORAGE_KEYS.mktPin);
+      if (savedOwnerPin && savedOwnerPin.length === 4) state.ownerPin = savedOwnerPin;
+      if (savedMktPin && savedMktPin.length === 4) state.mktPin = savedMktPin;
+
+      try {
+        const savedG = JSON.parse(localStorage.getItem(STORAGE_KEYS.guardrails) || 'null');
+        if (savedG && Number(savedG.maxMktgPct) > 0) {
+          state.guardrails = { ...REHG_RECOMMENDED_GUARDRAILS, ...savedG };
+        }
+      } catch (e) {
+        // Keep REHG Recommended defaults
+      }
+
+      const today = todayIsoStr();
+      ['res-date', 'prom-date', 'filter-start-date', 'filter-end-date'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = today;
+      });
+
+      initSupabaseClient();
+      syncVenueDropdownOptions();
+      syncGuardrailInputsToUI();
+
+      const storedMode = localStorage.getItem(STORAGE_KEYS.mode);
+      if (storedMode === 'STANDALONE_CSV') {
+        setIngestionMode('STANDALONE_CSV');
+      }
+
+      recalcCampaignSimulator();
+      recalcPackageMargin();
+      recalcPromoterSettlementPreview();
+      renderGasBridgeProvisioner();
+
+      setTimeout(focusPinInput, 80);
+    });
+  </script>
+</body>
+</html>
